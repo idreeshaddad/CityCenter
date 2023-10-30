@@ -9,10 +9,11 @@ namespace MB.CityCenter.Entities
         public OrderStatus OrderStatus { get; set; } = OrderStatus.Pending;
         public decimal TotalPrice { get; set; }
         public PaymentMethod PaymentMethod { get; set; } = PaymentMethod.Cash;
-
-        public List<Product> Products { get; set; } = new List<Product>();
         
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
+
+
+        public List<OrderProduct> OrderProducts { get; set; } = new List<OrderProduct>();
     }
 }

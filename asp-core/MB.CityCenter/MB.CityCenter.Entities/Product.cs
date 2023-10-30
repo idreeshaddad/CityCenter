@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MB.CityCenter.Entities
+﻿namespace MB.CityCenter.Entities
 {
     public class Product
     {
@@ -23,6 +17,6 @@ namespace MB.CityCenter.Entities
         public int ProductTypeId { get; set; }
         public ProductType ProductType { get; set; }
 
-        public List<Order> Orders { get; set; }
+        public List<OrderProduct> OrderProducts { get; set; } = new List<OrderProduct>();
     }
 }
