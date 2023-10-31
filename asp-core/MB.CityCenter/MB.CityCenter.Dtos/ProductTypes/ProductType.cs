@@ -1,6 +1,6 @@
-﻿namespace MB.CityCenter.Entities
+﻿namespace MB.CityCenter.Dtos.ProductTypes
 {
-    public class Brand
+    public class ProductType
     {
         public int Id { get; set; }
         public string Name { get; set; }
