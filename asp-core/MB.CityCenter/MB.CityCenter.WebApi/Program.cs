@@ -1,10 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using MB.CityCenter.EntityFrameworkCore;
+using MB.CityCenter.AutoMapper;
 
 namespace MB.CityCenter.WebApi
 {
@@ -16,7 +12,10 @@ namespace MB.CityCenter.WebApi
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
+            builder.Services.AddAutoMapper(typeof(BrandAutoMapperProfile));
+
+            builder.Services.AddControllers().AddNewtonsoftJson();
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();

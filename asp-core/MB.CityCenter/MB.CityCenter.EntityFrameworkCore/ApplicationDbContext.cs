@@ -1,5 +1,6 @@
 ﻿using MB.CityCenter.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace MB.CityCenter.EntityFrameworkCore
 {
@@ -43,6 +44,10 @@ namespace MB.CityCenter.EntityFrameworkCore
             modelBuilder.Entity<Brand>()
                         .Property(u => u.Name)
                         .HasMaxLength(40);
+
+            modelBuilder.Entity<ProductType>()
+                        .HasIndex(u => u.Name)
+                        .IsUnique();
         }
     }
 }

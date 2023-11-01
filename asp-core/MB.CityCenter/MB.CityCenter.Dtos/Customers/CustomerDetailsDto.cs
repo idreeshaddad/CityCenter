@@ -1,4 +1,6 @@
-﻿namespace MB.CityCenter.Dtos.Customers
+﻿using MB.CityCenter.Dtos.Orders;
+
+namespace MB.CityCenter.Dtos.Customers
 {
     public class CustomerDetailsDto
     {

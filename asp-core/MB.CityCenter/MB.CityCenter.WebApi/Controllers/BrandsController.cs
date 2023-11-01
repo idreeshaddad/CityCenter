@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using MB.CityCenter.Entities;
 using MB.CityCenter.EntityFrameworkCore;
+using AutoMapper;
+using MB.CityCenter.Dtos.Brands;
 
 namespace MB.CityCenter.WebApi.Controllers
 {
@@ -12,10 +14,12 @@ namespace MB.CityCenter.WebApi.Controllers
         #region Data and Constructors
 
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public BrandsController(ApplicationDbContext context)
+        public BrandsController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         #endregion
@@ -23,22 +27,23 @@ namespace MB.CityCenter.WebApi.Controllers
         #region Actions
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Brand>>> GetBrands()
+        public async Task<ActionResult<IEnumerable<BrandDto>>> GetBrands()
         {
-            if (_context.Brands == null)
-            {
-                return NotFound();
-            }
-            return await _context.Brands.ToListAsync();
+            var brands = await _context.Brands.ToListAsync();
+
+            var brandsDtos = _mapper.Map<List<BrandDto>>(brands);
+
+            return brandsDtos;
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Brand>> GetBrand(int id)
+        public async Task<ActionResult<BrandDto>> GetBrand(int? id)
         {
-            if (_context.Brands == null)
+            if(id == null)
             {
-                return NotFound();
+                return BadRequest();
             }
+
             var brand = await _context.Brands.FindAsync(id);
 
             if (brand == null)
@@ -46,18 +51,23 @@ namespace MB.CityCenter.WebApi.Controllers
                 return NotFound();
             }
 
-            return brand;
+            var brandDto = _mapper.Map<BrandDto>(brand);
+
+            return brandDto;
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditBrand(int id, Brand brand)
+        public async Task<IActionResult> EditBrand(int id, BrandDto brandDto)
         {
-            if (id != brand.Id)
+            if (id != brandDto.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(brand).State = EntityState.Modified;
+            var brand = _mapper.Map<Brand>(brandDto);
+
+            //_context.Entry(brand).State = EntityState.Modified;
+            _context.Update(brand);
 
             try
             {
@@ -79,26 +89,21 @@ namespace MB.CityCenter.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Brand>> CreateBrand(Brand brand)
+        public async Task<IActionResult> CreateBrand(BrandDto brandDto)
         {
-            if (_context.Brands == null)
-            {
-                return Problem("Entity set 'ApplicationDbContext.Brands'  is null.");
-            }
+            var brand = _mapper.Map<Brand>(brandDto);
+
             _context.Brands.Add(brand);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetBrand", new { id = brand.Id }, brand);
+            return Ok();
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBrand(int id)
         {
-            if (_context.Brands == null)
-            {
-                return NotFound();
-            }
             var brand = await _context.Brands.FindAsync(id);
+
             if (brand == null)
             {
                 return NotFound();

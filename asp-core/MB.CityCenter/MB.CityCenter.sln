@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MB.CityCenter.EntityFramewo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MB.CityCenter.WebApi", "MB.CityCenter.WebApi\MB.CityCenter.WebApi.csproj", "{6B0E33DC-04AD-4E1E-9108-178A153C9CC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MB.CityCenter.Dtos", "MB.CityCenter.Dtos\MB.CityCenter.Dtos.csproj", "{53BABE3E-C2A3-4F62-8D84-A8CA3DB75D79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MB.CityCenter.Dtos", "MB.CityCenter.Dtos\MB.CityCenter.Dtos.csproj", "{53BABE3E-C2A3-4F62-8D84-A8CA3DB75D79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MB.CityCenter.AutoMapper", "MB.CityCenter.AutoMapper\MB.CityCenter.AutoMapper.csproj", "{31A76F17-89D7-4B71-B32B-30AAC3C54A80}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{53BABE3E-C2A3-4F62-8D84-A8CA3DB75D79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53BABE3E-C2A3-4F62-8D84-A8CA3DB75D79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53BABE3E-C2A3-4F62-8D84-A8CA3DB75D79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31A76F17-89D7-4B71-B32B-30AAC3C54A80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31A76F17-89D7-4B71-B32B-30AAC3C54A80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31A76F17-89D7-4B71-B32B-30AAC3C54A80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31A76F17-89D7-4B71-B32B-30AAC3C54A80}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
