@@ -1,8 +1,9 @@
-﻿using MB.CityCenter.Utils.Enums;
+﻿using MB.CityCenter.Dtos.Products;
+using MB.CityCenter.Utils.Enums;
 
 namespace MB.CityCenter.Dtos.Orders
 {
-    public class OrderDto
+    public class OrderDetailsDto
     {
         public int Id { get; set; }
         public DateTime? Date { get; set; }
@@ -10,5 +11,7 @@ namespace MB.CityCenter.Dtos.Orders
         public decimal TotalPrice { get; set; }
         public PaymentMethod PaymentMethod { get; set; } = PaymentMethod.Cash;
         public string CustomerFullName { get; set; }
+
+        public List<ProductDto> Products { get; set; } = new List<ProductDto>();
     }
 }

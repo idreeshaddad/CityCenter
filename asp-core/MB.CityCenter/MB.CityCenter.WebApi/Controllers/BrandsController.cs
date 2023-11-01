@@ -5,10 +5,12 @@ using MB.CityCenter.EntityFrameworkCore;
 
 namespace MB.CityCenter.WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class BrandsController : ControllerBase
     {
+        #region Data and Constructors
+
         private readonly ApplicationDbContext _context;
 
         public BrandsController(ApplicationDbContext context)
@@ -16,23 +18,27 @@ namespace MB.CityCenter.WebApi.Controllers
             _context = context;
         }
 
+        #endregion
+
+        #region Actions
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Brand>>> GetBrands()
         {
-          if (_context.Brands == null)
-          {
-              return NotFound();
-          }
+            if (_context.Brands == null)
+            {
+                return NotFound();
+            }
             return await _context.Brands.ToListAsync();
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Brand>> GetBrand(int id)
         {
-          if (_context.Brands == null)
-          {
-              return NotFound();
-          }
+            if (_context.Brands == null)
+            {
+                return NotFound();
+            }
             var brand = await _context.Brands.FindAsync(id);
 
             if (brand == null)
@@ -44,7 +50,7 @@ namespace MB.CityCenter.WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBrand(int id, Brand brand)
+        public async Task<IActionResult> EditBrand(int id, Brand brand)
         {
             if (id != brand.Id)
             {
@@ -73,12 +79,12 @@ namespace MB.CityCenter.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Brand>> PostBrand(Brand brand)
+        public async Task<ActionResult<Brand>> CreateBrand(Brand brand)
         {
-          if (_context.Brands == null)
-          {
-              return Problem("Entity set 'ApplicationDbContext.Brands'  is null.");
-          }
+            if (_context.Brands == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.Brands'  is null.");
+            }
             _context.Brands.Add(brand);
             await _context.SaveChangesAsync();
 
@@ -104,9 +110,15 @@ namespace MB.CityCenter.WebApi.Controllers
             return NoContent();
         }
 
+        #endregion
+
+        #region Private Methods
+
         private bool BrandExists(int id)
         {
             return (_context.Brands?.Any(e => e.Id == id)).GetValueOrDefault();
-        }
+        } 
+
+        #endregion
     }
 }
