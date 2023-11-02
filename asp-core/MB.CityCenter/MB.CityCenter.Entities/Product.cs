@@ -8,7 +8,14 @@
         public decimal Price { get; set; }
 
         public int Quantity { get; set; }
-        public bool IsInStock { get; set; }
+
+        public bool IsInStock
+        {
+            get
+            {
+                return Quantity > 0;
+            }
+        }
 
         public int BrandId { get; set; }
         public Brand Brand { get; set; }
