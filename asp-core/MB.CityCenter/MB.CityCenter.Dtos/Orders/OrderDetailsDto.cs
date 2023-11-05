@@ -12,6 +12,6 @@ namespace MB.CityCenter.Dtos.Orders
         public PaymentMethod PaymentMethod { get; set; } = PaymentMethod.Cash;
         public string CustomerFullName { get; set; }
 
-        public List<ProductDto> Products { get; set; } = new List<ProductDto>();
+        public List<SimpleProductDto> Products { get; set; } = new List<SimpleProductDto>();
     }
 }

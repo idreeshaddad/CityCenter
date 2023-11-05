@@ -4,8 +4,6 @@ using MB.CityCenter.Entities;
 using MB.CityCenter.EntityFrameworkCore;
 using AutoMapper;
 using MB.CityCenter.Dtos.Orders;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using System.Linq;
 
 namespace MB.CityCenter.WebApi.Controllers
 {
@@ -70,8 +68,19 @@ namespace MB.CityCenter.WebApi.Controllers
                 return BadRequest();
             }
 
-            var order = _mapper.Map<Order>(orderDto);
+            var order = await _context
+                                .Orders
+                                .Include(o => o.OrderProducts)
+                                    .ThenInclude(op => op.Product)
+                                .Where(o => o.Id == id)
+                                .SingleOrDefaultAsync();
 
+            _mapper.Map(orderDto, order);
+
+            order.TotalPrice = await GetOrderTotalPrice(orderDto);
+
+            UpdateOrderProducts(order, orderDto);
+            
             _context.Update(order);
 
             try
@@ -101,6 +110,10 @@ namespace MB.CityCenter.WebApi.Controllers
             order.Date = DateTime.Now;
 
             order.TotalPrice = await GetOrderTotalPrice(orderDto);
+
+
+            UpdateOrderProducts(order, orderDto);
+
 
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
@@ -134,11 +147,26 @@ namespace MB.CityCenter.WebApi.Controllers
 
         private async Task<decimal> GetOrderTotalPrice(CreateUpdateOrderDto orderDto)
         {
-            var productIds = orderDto.Products.Select(p => p.Id).ToList();
+            var productIds = orderDto.Products.Select(p => p.ProductId).ToList();
             var products = await _context.Products.Where(p => productIds.Contains(p.Id)).ToListAsync();
 
-            decimal totalPrice = products.Sum(p => p.Price * orderDto.Products.First(op => op.Id == p.Id).Quantity);
+            decimal totalPrice = products.Sum(p => p.Price * orderDto.Products.Single(op => op.ProductId == p.Id).Quantity);
             return totalPrice;
+        }
+
+        private void UpdateOrderProducts(Order order, CreateUpdateOrderDto orderDto)
+        {
+            order.OrderProducts.Clear();
+
+            orderDto.Products.ForEach(orderProduct =>
+            {
+                order.OrderProducts.Add(new OrderProduct()
+                {
+                    OrderId = order.Id,
+                    ProductId = orderProduct.ProductId,
+                    Quantity = orderProduct.Quantity
+                });
+            });
         }
 
         #endregion
