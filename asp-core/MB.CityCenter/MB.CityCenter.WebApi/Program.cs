@@ -1,6 +1,6 @@
-using Microsoft.EntityFrameworkCore;
-using MB.CityCenter.EntityFrameworkCore;
 using MB.CityCenter.AutoMapper;
+using MB.CityCenter.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace MB.CityCenter.WebApi
 {
@@ -19,9 +19,21 @@ namespace MB.CityCenter.WebApi
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            
+
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+            var allowCors = "allowCors";
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(name: allowCors,
+                                  policy =>
+                                  {
+                                      policy.WithOrigins("http://localhost:4200")
+                                      .AllowAnyMethod();
+                                  });
+            });
 
 
             var app = builder.Build();
@@ -34,6 +46,8 @@ namespace MB.CityCenter.WebApi
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors(allowCors);
 
             app.UseAuthorization();
 

@@ -9,6 +9,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { HomeComponent } from './home/home.component';
 import { BrandsComponent } from './brands/brands.component';
 
+import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from './shared/shared.module';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +23,8 @@ import { BrandsComponent } from './brands/brands.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatButtonModule
+    HttpClientModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
