@@ -15,4 +15,9 @@ export class BrandService {
 
     return this.http.get<Brand[]>(`${environment.apiUrl}/Brands/GetBrands`);
   }
+
+  getBrand(id: number): Observable<Brand> {
+
+    return this.http.get<Brand>(`${environment.apiUrl}/Brands/GetBrand/${id}`);
+  }
 }

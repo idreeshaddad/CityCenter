@@ -11,20 +11,24 @@ import { BrandsComponent } from './brands/brands.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
+import { CreateUpdateBrandComponent } from './brands/create-update-brand/create-update-brand.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    BrandsComponent
+    BrandsComponent,
+    CreateUpdateBrandComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

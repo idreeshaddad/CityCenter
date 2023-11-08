@@ -1,0 +1,25 @@
+<div class="container">
+  <h1>
+    <ng-container *ngIf="pageMode === pageModeEnum.Create; else elsePageTitleTemplate">
+      Create a Brand
+    </ng-container>
+    <ng-template #elsePageTitleTemplate>
+      Edit <span class="text-primary">{{ brand?.name }}</span>
+    </ng-template>
+  </h1>
+
+  <hr>
+
+  <form [formGroup]="form">
+
+    <div class="example-container">
+      <mat-form-field appearance="outline">
+        <mat-label>Brand Name</mat-label>
+        <input matInput formControlName="name" required>
+        <mat-error>Brand name is required</mat-error>
+      </mat-form-field>
+    </div>
+
+  </form>
+
+</div>
