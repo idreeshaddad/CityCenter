@@ -31,7 +31,8 @@ namespace MB.CityCenter.WebApi
                                   policy =>
                                   {
                                       policy.WithOrigins("http://localhost:4200")
-                                      .AllowAnyMethod();
+                                              .AllowAnyMethod()
+                                              .AllowAnyHeader();
                                   });
             });
 

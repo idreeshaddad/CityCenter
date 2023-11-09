@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PageMode } from 'src/app/enums/pageMode.enum';
 import { Brand } from 'src/app/models/brands/brand.model';
 import { BrandService } from 'src/app/services/brand.service';
+import { NotificationMessages } from 'src/app/shared/constants/notification-messages';
 
 @Component({
   selector: 'app-create-update-brand',
@@ -39,8 +40,20 @@ export class CreateUpdateBrandComponent implements OnInit {
     if (this.pageMode == PageMode.Edit) {
       this.loadBrand();
     }
+  }
 
+  submitForm(): void {
 
+    if (this.form.valid) {
+
+      if (this.pageMode === PageMode.Create) {
+        this.brand = this.form.value;
+        this.createBrand();
+      }
+      else {
+        this.editBrand();
+      }
+    }
   }
 
   //#region Private Functions
@@ -76,11 +89,11 @@ export class CreateUpdateBrandComponent implements OnInit {
       },
       error: (err: HttpErrorResponse) => {
         if (err.status == 404) {
-          this.snackBar.open("404 No such brand exist.");
+          this.snackBar.open(NotificationMessages.NotFound);
           this.Router.navigate(['/brands']);
         }
         else {
-          this.snackBar.open("Internal Server Error. Please Contact the Administrator", "Ok", {
+          this.snackBar.open(NotificationMessages.InternalServerError, "Ok", {
             duration: 0
           });
         }
@@ -88,6 +101,32 @@ export class CreateUpdateBrandComponent implements OnInit {
       }
     });
 
+  }
+
+  private createBrand() {
+
+    this.brandSvc.createBrand(this.form.value).subscribe({
+      next: () => {
+        this.snackBar.open(NotificationMessages.CreatedSuccessfully);
+        this.Router.navigate(['/brands']);
+      },
+      error: (err: HttpErrorResponse) => {
+        this.snackBar.open(NotificationMessages.InternalServerError);
+      }
+    });
+  }
+
+  private editBrand() {
+
+    this.brandSvc.editBrand(this.brandId, this.form.value).subscribe({
+      next: () => {
+        this.snackBar.open(NotificationMessages.EditedSuccessfully);
+        this.Router.navigate(['/brands']);
+      },
+      error: (err: HttpErrorResponse) => {
+        this.snackBar.open(NotificationMessages.InternalServerError);
+      }
+    });
   }
 
   //#endregion

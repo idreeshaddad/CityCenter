@@ -10,15 +10,25 @@
 
   <hr>
 
-  <form [formGroup]="form">
+  <form [formGroup]="form" (ngSubmit)="submitForm()">
 
-    <div class="example-container">
-      <mat-form-field appearance="outline">
-        <mat-label>Brand Name</mat-label>
-        <input matInput formControlName="name" required>
-        <mat-error>Brand name is required</mat-error>
-      </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Brand Name</mat-label>
+      <input matInput formControlName="name" required>
+      <mat-error>Brand name is required</mat-error>
+    </mat-form-field>
+
+    <div class="mt-2">
+      <button type="submit" mat-raised-button color="primary">
+        <ng-container *ngIf="pageMode === pageModeEnum.Create; else elseSubmitButtonTemplate">
+          Create
+        </ng-container>
+        <ng-template #elseSubmitButtonTemplate>
+          Save
+        </ng-template>
+      </button>
     </div>
+
 
   </form>
 

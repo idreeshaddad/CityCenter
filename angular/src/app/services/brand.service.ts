@@ -20,4 +20,20 @@ export class BrandService {
 
     return this.http.get<Brand>(`${environment.apiUrl}/Brands/GetBrand/${id}`);
   }
+
+  createBrand(brand: Brand): Observable<any> {
+
+    return this.http.post<Brand>(`${environment.apiUrl}/Brands/CreateBrand`, brand);
+  }
+
+  editBrand(id: number, brand: Brand): Observable<any> {
+
+    return this.http.put<Brand>(`${environment.apiUrl}/Brands/EditBrand/${id}`, brand);
+  }
+
+  deleteBrand(id: number): Observable<any> {
+
+    return this.http.delete<Brand>(`${environment.apiUrl}/Brands/DeleteBrand/${id}`)
+  }
+
 }
