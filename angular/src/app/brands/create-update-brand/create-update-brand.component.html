@@ -19,7 +19,10 @@
     </mat-form-field>
 
     <div class="mt-2">
-      <button type="submit" mat-raised-button color="primary">
+
+      <button type="button" mat-raised-button color="accent" [routerLink]="['/brands']">Cancel</button>
+
+      <button type="submit" class="ms-2" mat-raised-button color="primary">
         <ng-container *ngIf="pageMode === pageModeEnum.Create; else elseSubmitButtonTemplate">
           Create
         </ng-container>

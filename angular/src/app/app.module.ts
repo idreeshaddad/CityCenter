@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { CreateUpdateBrandComponent } from './brands/create-update-brand/create-update-brand.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DeleteBrandDialogComponent } from './brands/delete-brand-dialog/delete-brand-dialog.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppComponent,
     HomeComponent,
     BrandsComponent,
-    CreateUpdateBrandComponent
+    CreateUpdateBrandComponent,
+    DeleteBrandDialogComponent
   ],
   imports: [
     BrowserModule,
