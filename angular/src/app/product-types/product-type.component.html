@@ -1,0 +1,35 @@
+<div class="container">
+  <h1>Product Types</h1>
+  <hr>
+  <button mat-raised-button color="primary" [routerLink]="['create']">Create a New Product Type</button>
+  <hr>
+
+  <table mat-table [dataSource]="productTypeDS">
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let element">
+        <a [routerLink]="['/productTypes/edit', element.id]">
+          <mat-icon aria-hidden="false" aria-label="edit" fontIcon="edit"></mat-icon>
+        </a>
+        <a class="ms-2 pointer" (click)="openDeleteDialog(element)">
+          <mat-icon color="warn" aria-hidden="false" aria-label="edit" fontIcon="delete"></mat-icon>
+        </a>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+</div>

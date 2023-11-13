@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>Delete Product Type</h1>
+<div mat-dialog-content>
+  <h2>
+    Are you sure you want to delete product type <span class="text-danger">{{productTypeData.name}}</span>?
+  </h2>
+</div>
+<div mat-dialog-actions>
+  <button class="ms-auto" mat-raised-button color="basic" mat-dialog-close cdkFocusInitial>Cancel</button>
+  <button class="ms-2" mat-raised-button color="warn" [mat-dialog-close]="true">Delete</button>
+</div>

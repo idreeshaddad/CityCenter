@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatButtonModule } from '@angular/material/button';
 import { HomeComponent } from './home/home.component';
 import { BrandsComponent } from './brands/brands.component';
 
@@ -14,6 +13,9 @@ import { SharedModule } from './shared/shared.module';
 import { CreateUpdateBrandComponent } from './brands/create-update-brand/create-update-brand.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DeleteBrandDialogComponent } from './brands/delete-brand-dialog/delete-brand-dialog.component';
+import { ProductTypeComponent } from './product-types/product-type.component';
+import { DeleteProductTypeDialogComponent } from './product-types/delete-product-type-dialog/delete-product-type-dialog.component';
+import { CreateUpdateProductTypeComponent } from './product-types/create-update-product-type/create-update-product-type.component';
 
 
 @NgModule({
@@ -22,7 +24,10 @@ import { DeleteBrandDialogComponent } from './brands/delete-brand-dialog/delete-
     HomeComponent,
     BrandsComponent,
     CreateUpdateBrandComponent,
-    DeleteBrandDialogComponent
+    DeleteBrandDialogComponent,
+    ProductTypeComponent,
+    DeleteProductTypeDialogComponent,
+    CreateUpdateProductTypeComponent
   ],
   imports: [
     BrowserModule,

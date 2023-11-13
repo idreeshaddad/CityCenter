@@ -1,26 +1,24 @@
 <div class="container">
   <h1>
-    <ng-container *ngIf="pageMode === pageModeEnum.Create; else elsePageTitleTemplate">
-      Create a Brand
+    <ng-container *ngIf="pageMode == pageModeEnum.Create; else elsePageTitleTemplate">
+      Create a Product Type
     </ng-container>
     <ng-template #elsePageTitleTemplate>
-      Edit <span class="text-primary">{{ brand?.name }}</span>
+      Edit <span class="text-primary">{{ productType?.name }}</span>
     </ng-template>
   </h1>
 
-  <hr>
-
-  <form [formGroup]="form" (ngSubmit)="submitForm()">
+  <form [formGroup]="form" (ngSubmit)="submit()">
 
     <mat-form-field appearance="outline">
-      <mat-label>Brand Name</mat-label>
+      <mat-label>Product Type Name</mat-label>
       <input matInput formControlName="name" required>
-      <mat-error>Brand name is required</mat-error>
+      <mat-error>Product Type is required</mat-error>
     </mat-form-field>
 
     <div class="mt-2">
 
-      <button type="button" mat-raised-button color="basic" [routerLink]="['/brands']">Cancel</button>
+      <button type="button" mat-raised-button color="basic" [routerLink]="['/productTypes']">Cancel</button>
 
       <button type="submit" class="ms-2" mat-raised-button color="primary">
         <ng-container *ngIf="pageMode === pageModeEnum.Create; else elseSubmitButtonTemplate">
