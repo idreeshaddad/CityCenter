@@ -16,6 +16,10 @@ import { DeleteBrandDialogComponent } from './brands/delete-brand-dialog/delete-
 import { ProductTypeComponent } from './product-types/product-type.component';
 import { DeleteProductTypeDialogComponent } from './product-types/delete-product-type-dialog/delete-product-type-dialog.component';
 import { CreateUpdateProductTypeComponent } from './product-types/create-update-product-type/create-update-product-type.component';
+import { CustomersComponent } from './customers/customers.component';
+import { CreateUpdateCustomerComponent } from './customers/create-update-customer/create-update-customer.component';
+import { DeleteCustomerDialogComponent } from './customers/delete-customer-dialog/delete-customer-dialog.component';
+import { CustomerDetailsComponent } from './customers/customer-details/customer-details.component';
 
 
 @NgModule({
@@ -27,7 +31,11 @@ import { CreateUpdateProductTypeComponent } from './product-types/create-update-
     DeleteBrandDialogComponent,
     ProductTypeComponent,
     DeleteProductTypeDialogComponent,
-    CreateUpdateProductTypeComponent
+    CreateUpdateProductTypeComponent,
+    CustomersComponent,
+    CreateUpdateCustomerComponent,
+    DeleteCustomerDialogComponent,
+    CustomerDetailsComponent
   ],
   imports: [
     BrowserModule,
