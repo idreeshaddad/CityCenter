@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Customer } from '../models/customers/customer.model';
 import { environment } from 'src/environments/environment.development';
 import { Observable } from 'rxjs';
+import { CreateUpdateCustomer } from '../models/customers/create-update-customer.model';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,11 @@ export class CustomerService {
   deleteCustomer(id: number): Observable<any> {
 
     return this.http.delete<Customer>(`${environment.apiUrl}/Customers/DeleteCustomer/${id}`)
+  }
+
+  getCustomerForEdit(id: number): Observable<CreateUpdateCustomer> {
+
+    return this.http.get<CreateUpdateCustomer>(`${environment.apiUrl}/Customers/GetCustomerForEdit/${id}`);
   }
 
 }

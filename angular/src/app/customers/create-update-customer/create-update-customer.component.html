@@ -1,1 +1,65 @@
-<p>create-update-customer works!</p>
+<div class="container">
+
+  <h1>
+    <ng-container *ngIf="pageMode === pageModeEnum.Create; else elseTitleTemplate">
+      Create a new Customer
+    </ng-container>
+    <ng-template #elseTitleTemplate>
+      Edit customer <span class="text-primary ">{{ customer?.firstName }} {{ customer?.lastName }}</span>
+    </ng-template>
+
+  </h1>
+  <hr>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstName" required>
+        <mat-error>First Name is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="mt-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastName" required>
+        <mat-error>Last Name is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="mt-2">
+      <mat-form-field>
+        <mat-label>Date of Birth</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="dateOfBirth">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="mt-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Phone Number</mat-label>
+        <input matInput formControlName="phoneNumber" required>
+        <mat-error>Phone Number is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="mt-3">
+      <button mat-raised-button color="basic" [routerLink]="['/customers']">Cancel</button>
+      <button class="ms-3" mat-raised-button color="primary" type="submit">
+        <ng-container *ngIf="pageMode === pageModeEnum.Create; else elseButtonTemplate">
+          Create
+        </ng-container>
+        <ng-template #elseButtonTemplate>
+          Save
+        </ng-template>
+
+      </button>
+    </div>
+
+  </form>
+
+</div>

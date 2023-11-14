@@ -55,6 +55,20 @@ namespace MB.CityCenter.WebApi.Controllers
             return customerDetailsDto;
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<CreateUpdateCustomerDto>> GetCustomerForEdit(int id)
+        {
+            var customer = await _context.Customers.FindAsync(id);
+
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+            var customerDto = _mapper.Map<CreateUpdateCustomerDto>(customer);
+
+            return customerDto;
+        }
         [HttpPut("{id}")]
         public async Task<IActionResult> EditCustomer(int id, CreateUpdateCustomerDto customerDto)
         {

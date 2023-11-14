@@ -7,6 +7,7 @@ import { ProductTypeComponent } from './product-types/product-type.component';
 import { CreateUpdateProductTypeComponent } from './product-types/create-update-product-type/create-update-product-type.component';
 import { CustomersComponent } from './customers/customers.component';
 import { CreateUpdateCustomerComponent } from './customers/create-update-customer/create-update-customer.component';
+import { CustomerDetailsComponent } from './customers/customer-details/customer-details.component';
 
 const routes: Routes = [
   { path: "home", component: HomeComponent },
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: "productTypes/edit/:id", component: CreateUpdateProductTypeComponent },
 
   { path: "customers", component: CustomersComponent },
+  { path: "customers/details/:id", component: CustomerDetailsComponent },
   { path: "customers/create", component: CreateUpdateCustomerComponent },
   { path: "customers/edit/:id", component: CreateUpdateCustomerComponent },
 
