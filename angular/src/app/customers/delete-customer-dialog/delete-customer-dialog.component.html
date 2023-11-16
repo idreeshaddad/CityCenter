@@ -1,1 +1,9 @@
-<p>delete-customer-dialog works!</p>
+<h1 mat-dialog-title>Delete Customer</h1>
+<div mat-dialog-content>
+  <h2>Are you sure you want to delete <span class="text-danger">{{ customer.fullName }} - {{ customer.phoneNumber
+      }}</span>?</h2>
+</div>
+<div mat-dialog-actions class="justify-content-end">
+  <button mat-raised-button color="basic" [mat-dialog-close] cdkFocusInitial>Cancel</button>
+  <button mat-raised-button color="warn" [mat-dialog-close]="true">Delete</button>
+</div>

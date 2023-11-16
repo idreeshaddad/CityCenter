@@ -13,3 +13,18 @@ body {
 .pointer {
   cursor: pointer;
 }
+
+.mat-mdc-dialog-title {
+  border-bottom: 1px solid #ddd !important;
+  margin-bottom: 2rem !important;
+  box-shadow: 0px 0px 2px #ddd !important;
+  background: #094bac !important;
+  color: #fff !important;
+}
+
+.mat-mdc-dialog-actions {
+  padding: 16px !important;
+  margin-top: 2rem !important;
+  background: #f9f9f9 !important;
+  border-top: 1px solid #ccc !important;
+}

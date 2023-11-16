@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Customer } from 'src/app/models/customers/customer.model';
 
 @Component({
   selector: 'app-delete-customer-dialog',
@@ -7,5 +9,10 @@ import { Component } from '@angular/core';
   ]
 })
 export class DeleteCustomerDialogComponent {
+
+  constructor(
+    public dialogRef: MatDialogRef<DeleteCustomerDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public customer: Customer,
+  ) { }
 
 }
