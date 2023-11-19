@@ -18,7 +18,7 @@ export class CreateUpdateBrandComponent implements OnInit {
   brandId!: number;
   pageMode: PageMode = PageMode.Create;
   form!: FormGroup;
-  brand!: Brand;
+  brand?: Brand;
 
   pageModeEnum = PageMode;
 

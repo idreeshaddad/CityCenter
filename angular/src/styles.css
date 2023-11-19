@@ -28,3 +28,7 @@ body {
   background: #f9f9f9 !important;
   border-top: 1px solid #ccc !important;
 }
+
+.alt-font {
+  font-family: 'Actor', sans-serif;
+}

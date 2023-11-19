@@ -1,0 +1,23 @@
+<div class="container">
+  <h1>Products</h1>
+  <hr>
+  <button mat-raised-button color="primary" [routerLink]="['/products/create']">Add new Product</button>
+  <hr>
+
+  <div class="row">
+
+    <div class="col-xl-3 mb-3" *ngFor="let product of products">
+      <div class="card h-100">
+        <img src="https://picsum.photos/600/400" class="card-img-top border-bottom" [alt]="product.name">
+        <div class="card-body mb-3">
+          <a [routerLink]="['/products/details', product.id]" class="fs-5 alt-font text-decoration-none">{{ product.name
+            }}</a>
+        </div>
+        <div class="card-footer">
+          <div class="text-end fw-bold fs-6">{{ product.price | currency }}</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

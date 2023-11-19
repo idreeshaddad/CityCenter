@@ -18,7 +18,7 @@ export class CreateUpdateProductTypeComponent implements OnInit {
   form!: FormGroup;
   productTypeId!: number;
   pageMode: PageMode = PageMode.Create;
-  productType!: ProductType;
+  productType?: ProductType;
 
   pageModeEnum = PageMode;
 

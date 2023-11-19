@@ -20,6 +20,11 @@ import { CustomersComponent } from './customers/customers.component';
 import { CreateUpdateCustomerComponent } from './customers/create-update-customer/create-update-customer.component';
 import { DeleteCustomerDialogComponent } from './customers/delete-customer-dialog/delete-customer-dialog.component';
 import { CustomerDetailsComponent } from './customers/customer-details/customer-details.component';
+import { ProductsComponent } from './products/products.component';
+import { ProductDetailsComponent } from './products/product-details/product-details.component';
+import { CreateUpdateProductComponent } from './products/create-update-product/create-update-product.component';
+import { DeleteProductDialogComponent } from './products/delete-product-dialog/delete-product-dialog.component';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -35,12 +40,17 @@ import { CustomerDetailsComponent } from './customers/customer-details/customer-
     CustomersComponent,
     CreateUpdateCustomerComponent,
     DeleteCustomerDialogComponent,
-    CustomerDetailsComponent
+    CustomerDetailsComponent,
+    ProductsComponent,
+    ProductDetailsComponent,
+    CreateUpdateProductComponent,
+    DeleteProductDialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     HttpClientModule,
     SharedModule,
     ReactiveFormsModule
