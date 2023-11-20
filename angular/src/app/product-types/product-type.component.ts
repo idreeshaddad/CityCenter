@@ -5,6 +5,7 @@ import { NotificationMessages } from '../shared/constants/notification-messages'
 import { ProductTypeService } from '../services/product-type.service';
 import { ProductType } from '../models/productTypes/productType.model';
 import { DeleteProductTypeDialogComponent } from './delete-product-type-dialog/delete-product-type-dialog.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -20,7 +21,8 @@ export class ProductTypeComponent implements OnInit {
   constructor(
     private productTypeSvc: ProductTypeService,
     private matDialogSvc: MatDialog,
-    private matSnackbar: MatSnackBar
+    private matSnackbar: MatSnackBar,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
@@ -45,8 +47,13 @@ export class ProductTypeComponent implements OnInit {
 
   private loadProductTypes(): void {
 
+    this.spinner.show();
+
     this.productTypeSvc.getProductTypes().subscribe({
       next: (productTypes: ProductType[]) => {
+
+        this.spinner.hide();
+
         this.productTypeDS = productTypes;
       }
     });

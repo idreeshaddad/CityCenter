@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteCustomerDialogComponent } from './delete-customer-dialog/delete-customer-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NotificationMessages } from '../shared/constants/notification-messages';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -20,7 +21,8 @@ export class CustomersComponent implements OnInit {
   constructor(
     private customerSvc: CustomerService,
     private matDialogSvc: MatDialog,
-    private matSnackbar: MatSnackBar
+    private matSnackbar: MatSnackBar,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
@@ -45,8 +47,13 @@ export class CustomersComponent implements OnInit {
 
   private loadCustomers(): void {
 
+    this.spinner.show();
+
     this.customerSvc.getCustomers().subscribe({
       next: (customers: Customer[]) => {
+
+        this.spinner.hide();
+
         this.customerDS = customers;
       }
     });

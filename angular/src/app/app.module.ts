@@ -25,7 +25,7 @@ import { ProductDetailsComponent } from './products/product-details/product-deta
 import { CreateUpdateProductComponent } from './products/create-update-product/create-update-product.component';
 import { DeleteProductDialogComponent } from './products/delete-product-dialog/delete-product-dialog.component';
 import { ToastrModule } from 'ngx-toastr';
-
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @NgModule({
   declarations: [
@@ -53,7 +53,8 @@ import { ToastrModule } from 'ngx-toastr';
     ToastrModule.forRoot(),
     HttpClientModule,
     SharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

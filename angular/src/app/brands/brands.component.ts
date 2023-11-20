@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteBrandDialogComponent } from './delete-brand-dialog/delete-brand-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NotificationMessages } from '../shared/constants/notification-messages';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-brands',
@@ -19,7 +20,8 @@ export class BrandsComponent implements OnInit {
   constructor(
     private brandSvc: BrandService,
     private matDialogSvc: MatDialog,
-    private matSnackbar: MatSnackBar
+    private matSnackbar: MatSnackBar,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
@@ -44,8 +46,13 @@ export class BrandsComponent implements OnInit {
 
   private loadBrands(): void {
 
+    this.spinner.show();
+
     this.brandSvc.getBrands().subscribe({
       next: (brands: Brand[]) => {
+
+        this.spinner.hide();
+
         this.brandDS = brands;
       }
     });

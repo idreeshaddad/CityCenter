@@ -33,10 +33,6 @@ namespace MB.CityCenter.EntityFrameworkCore
                         .Property(p => p.Price)
                         .HasColumnType("decimal(18,4)");
 
-            modelBuilder.Entity<Product>()
-                        .HasIndex(u => u.Name)
-                        .IsUnique();
-
             modelBuilder.Entity<Brand>()
                         .HasIndex(u => u.Name)
                         .IsUnique();
