@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { CustomerDetails } from 'src/app/models/customers/customer-details.model';
+import { CustomerDetailsDto } from 'src/app/dtos/customers/customer-details.model';
 import { CustomerService } from 'src/app/services/customer.service';
 
 @Component({
@@ -13,7 +13,7 @@ import { CustomerService } from 'src/app/services/customer.service';
 export class CustomerDetailsComponent implements OnInit {
 
   customerId!: number;
-  customer?: CustomerDetails;
+  customer?: CustomerDetailsDto;
 
   constructor(
     private customerSvc: CustomerService,
@@ -40,7 +40,7 @@ export class CustomerDetailsComponent implements OnInit {
   private loadCustomer(): void {
 
     this.customerSvc.getCustomer(this.customerId).subscribe({
-      next: (customerFromApi: CustomerDetails) => {
+      next: (customerFromApi: CustomerDetailsDto) => {
         this.customer = customerFromApi;
       },
       error: (err: HttpErrorResponse) => {

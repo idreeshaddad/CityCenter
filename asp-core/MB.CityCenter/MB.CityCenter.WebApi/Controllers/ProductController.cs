@@ -9,14 +9,14 @@ namespace MB.CityCenter.WebApi.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class ProductController : ControllerBase
+    public class ProductsController : ControllerBase
     {
         #region Data and Const
 
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
 
-        public ProductController(ApplicationDbContext context, IMapper mapper)
+        public ProductsController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -54,6 +54,24 @@ namespace MB.CityCenter.WebApi.Controllers
             }
 
             var productDto = _mapper.Map<ProductDetailsDto>(product);
+
+            return productDto;
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<CreateUpdateProductDto>> GetProductForEdit(int id)
+        {
+            var product = await _context
+                                    .Products
+                                    .Where(p => p.Id == id)
+                                    .SingleOrDefaultAsync();
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            var productDto = _mapper.Map<CreateUpdateProductDto>(product);
 
             return productDto;
         }

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../models/product/product.model';
+import { ProductDto } from '../dtos/product/product.model';
 import { ProductService } from '../services/product.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { NotificationMessages } from '../shared/constants/notification-messages';
+import { NgxSpinner, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-products',
@@ -12,11 +13,12 @@ import { NotificationMessages } from '../shared/constants/notification-messages'
 })
 export class ProductsComponent implements OnInit {
 
-  products: Product[] = [];
+  products: ProductDto[] = [];
 
   constructor(
     private productSvc: ProductService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
@@ -24,13 +26,21 @@ export class ProductsComponent implements OnInit {
     this.loadProducts();
   }
 
+  openDeleteDialog(product: ProductDto): void {
+    throw new Error('Method not implemented.');
+  }
+
   //#region Private Functions
 
   private loadProducts(): void {
 
+    this.spinner.show();
+
     this.productSvc.getProducts().subscribe({
-      next: (productsFromApi: Product[]) => {
+      next: (productsFromApi: ProductDto[]) => {
         this.products = productsFromApi;
+
+        this.spinner.hide();
       },
       error: (err: HttpErrorResponse) => {
         this.toastr.error(`${NotificationMessages.InternalServerError}: ${err.message}`);

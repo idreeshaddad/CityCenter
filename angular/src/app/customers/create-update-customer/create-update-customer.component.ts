@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageMode } from 'src/app/enums/pageMode.enum';
-import { CreateUpdateCustomer } from 'src/app/models/customers/create-update-customer.model';
+import { CreateUpdateCustomerDto } from 'src/app/dtos/customers/create-update-customer.model';
 import { CustomerService } from 'src/app/services/customer.service';
 import { NotificationMessages } from 'src/app/shared/constants/notification-messages';
 
@@ -16,7 +16,7 @@ import { NotificationMessages } from 'src/app/shared/constants/notification-mess
 export class CreateUpdateCustomerComponent implements OnInit {
 
   customerId!: number;
-  customer?: CreateUpdateCustomer;
+  customer?: CreateUpdateCustomerDto;
   form!: FormGroup;
 
   pageMode: PageMode = PageMode.Create;
@@ -88,7 +88,7 @@ export class CreateUpdateCustomerComponent implements OnInit {
   private loadCustomer(): void {
 
     this.customerSvc.getCustomerForEdit(this.customerId).subscribe({
-      next: (customerFromApi: CreateUpdateCustomer) => {
+      next: (customerFromApi: CreateUpdateCustomerDto) => {
         this.form.patchValue(customerFromApi);
         this.customer = customerFromApi;
       },

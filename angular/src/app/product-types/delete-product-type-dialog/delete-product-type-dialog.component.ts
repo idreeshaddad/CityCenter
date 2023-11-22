@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { ProductType } from 'src/app/models/productTypes/productType.model';
+import { ProductTypeDto } from 'src/app/dtos/productTypes/productType.model';
 
 @Component({
   selector: 'app-delete-product-type-dialog',
@@ -12,7 +12,7 @@ export class DeleteProductTypeDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<DeleteProductTypeDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public productTypeData: ProductType,
+    @Inject(MAT_DIALOG_DATA) public productTypeData: ProductTypeDto,
   ) { }
 
 }

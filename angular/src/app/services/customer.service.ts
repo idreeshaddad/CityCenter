@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Customer } from '../models/customers/customer.model';
+import { CustomerDto } from '../dtos/customers/customer.model';
 import { environment } from 'src/environments/environment.development';
 import { Observable } from 'rxjs';
-import { CreateUpdateCustomer } from '../models/customers/create-update-customer.model';
+import { CreateUpdateCustomerDto } from '../dtos/customers/create-update-customer.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,34 +12,34 @@ export class CustomerService {
 
   constructor(private http: HttpClient) { }
 
-  getCustomers(): Observable<Customer[]> {
+  getCustomers(): Observable<CustomerDto[]> {
 
-    return this.http.get<Customer[]>(`${environment.apiUrl}/Customers/GetCustomers`);
+    return this.http.get<CustomerDto[]>(`${environment.apiUrl}/Customers/GetCustomers`);
   }
 
-  getCustomer(id: number): Observable<Customer> {
+  getCustomer(id: number): Observable<CustomerDto> {
 
-    return this.http.get<Customer>(`${environment.apiUrl}/Customers/GetCustomer/${id}`);
+    return this.http.get<CustomerDto>(`${environment.apiUrl}/Customers/GetCustomer/${id}`);
   }
 
-  createCustomer(customer: Customer): Observable<any> {
+  createCustomer(customer: CustomerDto): Observable<any> {
 
-    return this.http.post<Customer>(`${environment.apiUrl}/Customers/CreateCustomer`, customer);
+    return this.http.post<CustomerDto>(`${environment.apiUrl}/Customers/CreateCustomer`, customer);
   }
 
-  editCustomer(id: number, customer: Customer): Observable<any> {
+  editCustomer(id: number, customer: CustomerDto): Observable<any> {
 
-    return this.http.put<Customer>(`${environment.apiUrl}/Customers/EditCustomer/${id}`, customer);
+    return this.http.put<CustomerDto>(`${environment.apiUrl}/Customers/EditCustomer/${id}`, customer);
   }
 
   deleteCustomer(id: number): Observable<any> {
 
-    return this.http.delete<Customer>(`${environment.apiUrl}/Customers/DeleteCustomer/${id}`)
+    return this.http.delete<CustomerDto>(`${environment.apiUrl}/Customers/DeleteCustomer/${id}`)
   }
 
-  getCustomerForEdit(id: number): Observable<CreateUpdateCustomer> {
+  getCustomerForEdit(id: number): Observable<CreateUpdateCustomerDto> {
 
-    return this.http.get<CreateUpdateCustomer>(`${environment.apiUrl}/Customers/GetCustomerForEdit/${id}`);
+    return this.http.get<CreateUpdateCustomerDto>(`${environment.apiUrl}/Customers/GetCustomerForEdit/${id}`);
   }
 
 }

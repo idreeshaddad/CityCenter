@@ -17,9 +17,23 @@
         <div class="card-body mb-3">
           <a [routerLink]="['/products/details', product.id]" class="fs-5 alt-font text-decoration-none">{{ product.name
             }}</a>
+
+          <div *ngIf="product.isInStock == false">
+            <div class="text-muted mt-3">Out of Stock</div>
+          </div>
         </div>
         <div class="card-footer">
-          <div class="text-end fw-bold fs-6">{{ product.price | currency }}</div>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="buttons">
+              <a [routerLink]="['/products/edit', product.id]">
+                <mat-icon aria-hidden="false" aria-label="edit" fontIcon="edit"></mat-icon>
+              </a>
+              <a class="ms-2 pointer" (click)="openDeleteDialog(product)">
+                <mat-icon color="warn" aria-hidden="false" aria-label="edit" fontIcon="delete"></mat-icon>
+              </a>
+            </div>
+            <div class="text-end fw-bold fs-6">{{ product.price | currency }}</div>
+          </div>
         </div>
       </div>
     </div>

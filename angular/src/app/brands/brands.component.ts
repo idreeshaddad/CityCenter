@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BrandService } from '../services/brand.service';
-import { Brand } from '../models/brands/brand.model';
+import { BrandDto } from '../dtos/brands/brand.model';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteBrandDialogComponent } from './delete-brand-dialog/delete-brand-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -15,7 +15,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class BrandsComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'name', 'actions'];
-  brandDS!: Brand[];
+  brandDS!: BrandDto[];
 
   constructor(
     private brandSvc: BrandService,
@@ -29,7 +29,7 @@ export class BrandsComponent implements OnInit {
     this.loadBrands();
   }
 
-  openDeleteDialog(brand: Brand): void {
+  openDeleteDialog(brand: BrandDto): void {
 
     const dialogRef = this.matDialogSvc.open(DeleteBrandDialogComponent, {
       data: brand
@@ -49,7 +49,7 @@ export class BrandsComponent implements OnInit {
     this.spinner.show();
 
     this.brandSvc.getBrands().subscribe({
-      next: (brands: Brand[]) => {
+      next: (brands: BrandDto[]) => {
 
         this.spinner.hide();
 

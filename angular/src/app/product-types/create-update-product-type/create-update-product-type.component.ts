@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageMode } from 'src/app/enums/pageMode.enum';
-import { ProductType } from 'src/app/models/productTypes/productType.model';
+import { ProductTypeDto } from 'src/app/dtos/productTypes/productType.model';
 import { ProductTypeService } from 'src/app/services/product-type.service';
 import { NotificationMessages } from 'src/app/shared/constants/notification-messages';
 
@@ -18,7 +18,7 @@ export class CreateUpdateProductTypeComponent implements OnInit {
   form!: FormGroup;
   productTypeId!: number;
   pageMode: PageMode = PageMode.Create;
-  productType?: ProductType;
+  productType?: ProductTypeDto;
 
   pageModeEnum = PageMode;
 
@@ -86,7 +86,7 @@ export class CreateUpdateProductTypeComponent implements OnInit {
   private loadProductType(): void {
 
     this.productTypeSvc.getProductType(this.productTypeId).subscribe({
-      next: (productTypeFromApi: ProductType) => {
+      next: (productTypeFromApi: ProductTypeDto) => {
         this.form.patchValue(productTypeFromApi);
         this.productType = productTypeFromApi;
       },

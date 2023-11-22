@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NotificationMessages } from '../shared/constants/notification-messages';
 import { ProductTypeService } from '../services/product-type.service';
-import { ProductType } from '../models/productTypes/productType.model';
+import { ProductTypeDto } from '../dtos/productTypes/productType.model';
 import { DeleteProductTypeDialogComponent } from './delete-product-type-dialog/delete-product-type-dialog.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -16,7 +16,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class ProductTypeComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'name', 'actions'];
-  productTypeDS!: ProductType[];
+  productTypeDS!: ProductTypeDto[];
 
   constructor(
     private productTypeSvc: ProductTypeService,
@@ -30,7 +30,7 @@ export class ProductTypeComponent implements OnInit {
     this.loadProductTypes();
   }
 
-  openDeleteDialog(productType: ProductType): void {
+  openDeleteDialog(productType: ProductTypeDto): void {
 
     const dialogRef = this.matDialogSvc.open(DeleteProductTypeDialogComponent, {
       data: productType
@@ -50,7 +50,7 @@ export class ProductTypeComponent implements OnInit {
     this.spinner.show();
 
     this.productTypeSvc.getProductTypes().subscribe({
-      next: (productTypes: ProductType[]) => {
+      next: (productTypes: ProductTypeDto[]) => {
 
         this.spinner.hide();
 

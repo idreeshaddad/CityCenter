@@ -1,4 +1,4 @@
-export interface ProductType {
+export interface BrandDto {
   id: number;
   name: string;
 }

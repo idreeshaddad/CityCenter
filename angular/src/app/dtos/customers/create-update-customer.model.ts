@@ -1,4 +1,4 @@
-export interface CreateUpdateCustomer {
+export interface CreateUpdateCustomerDto {
   id: number;
   firstName: string;
   lastName: string;

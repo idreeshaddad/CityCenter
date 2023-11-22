@@ -1,1 +1,90 @@
-<p>create-update-product works!</p>
+<div class="container">
+
+  <h1>
+    <ng-container *ngIf="pageMode === pageModeEnum.Create; else elseTitleTemplate">
+      Create a new Product
+    </ng-container>
+    <ng-template #elseTitleTemplate>
+      Edit product <span class="text-primary ">{{ product?.name }}}</span>
+    </ng-template>
+
+  </h1>
+  <hr>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+
+
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" required>
+        <mat-error>This field is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="mt-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Price</mat-label>
+        <input matInput formControlName="price" required>
+        <mat-error>This field is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="mt-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <input matInput formControlName="description" required>
+        <mat-error>This field is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="mt-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Quantity</mat-label>
+        <input matInput formControlName="quantity" required>
+        <mat-error>This field is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="mt-2">
+      <mat-form-field>
+        <mat-label>Brand</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let brand of brandLookup" [value]="brand.id">
+            {{brand.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="mt-2">
+      <mat-form-field>
+        <mat-label>Product Type</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let productType of productTypeLookup" [value]="productType.id">
+            {{productType.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+
+
+
+
+    <div class="mt-3">
+      <button mat-raised-button color="basic" [routerLink]="['/products']">Cancel</button>
+      <button class="ms-3" mat-raised-button color="primary" type="submit">
+        <ng-container *ngIf="pageMode === pageModeEnum.Create; else elseButtonTemplate">
+          Create
+        </ng-container>
+        <ng-template #elseButtonTemplate>
+          Save
+        </ng-template>
+
+      </button>
+    </div>
+
+  </form>
+
+</div>

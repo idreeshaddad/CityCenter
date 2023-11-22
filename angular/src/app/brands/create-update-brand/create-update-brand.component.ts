@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageMode } from 'src/app/enums/pageMode.enum';
-import { Brand } from 'src/app/models/brands/brand.model';
+import { BrandDto } from 'src/app/dtos/brands/brand.model';
 import { BrandService } from 'src/app/services/brand.service';
 import { NotificationMessages } from 'src/app/shared/constants/notification-messages';
 
@@ -18,7 +18,7 @@ export class CreateUpdateBrandComponent implements OnInit {
   brandId!: number;
   pageMode: PageMode = PageMode.Create;
   form!: FormGroup;
-  brand?: Brand;
+  brand?: BrandDto;
 
   pageModeEnum = PageMode;
 
@@ -83,7 +83,7 @@ export class CreateUpdateBrandComponent implements OnInit {
   private loadBrand() {
 
     this.brandSvc.getBrand(this.brandId).subscribe({
-      next: (brandFromApi: Brand) => {
+      next: (brandFromApi: BrandDto) => {
         this.form.patchValue(brandFromApi);
         this.brand = brandFromApi;
       },

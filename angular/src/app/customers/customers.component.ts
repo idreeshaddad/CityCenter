@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerService } from '../services/customer.service';
-import { Customer } from '../models/customers/customer.model';
+import { CustomerDto } from '../dtos/customers/customer.model';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteCustomerDialogComponent } from './delete-customer-dialog/delete-customer-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -16,7 +16,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class CustomersComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'fullName', 'age', 'phoneNumber', 'actions'];
-  customerDS!: Customer[];
+  customerDS!: CustomerDto[];
 
   constructor(
     private customerSvc: CustomerService,
@@ -30,7 +30,7 @@ export class CustomersComponent implements OnInit {
     this.loadCustomers();
   }
 
-  openDeleteDialog(customer: Customer): void {
+  openDeleteDialog(customer: CustomerDto): void {
 
     const dialogRef = this.matDialogSvc.open(DeleteCustomerDialogComponent, {
       data: customer
@@ -50,7 +50,7 @@ export class CustomersComponent implements OnInit {
     this.spinner.show();
 
     this.customerSvc.getCustomers().subscribe({
-      next: (customers: Customer[]) => {
+      next: (customers: CustomerDto[]) => {
 
         this.spinner.hide();
 

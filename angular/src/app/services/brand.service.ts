@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Brand } from '../models/brands/brand.model';
+import { BrandDto } from '../dtos/brands/brand.model';
 import { environment } from 'src/environments/environment.development';
 import { Observable } from 'rxjs';
+import { LookupDto } from '../dtos/lookups/lookupDto.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,29 +12,34 @@ export class BrandService {
 
   constructor(private http: HttpClient) { }
 
-  getBrands(): Observable<Brand[]> {
+  getBrands(): Observable<BrandDto[]> {
 
-    return this.http.get<Brand[]>(`${environment.apiUrl}/Brands/GetBrands`);
+    return this.http.get<BrandDto[]>(`${environment.apiUrl}/Brands/GetBrands`);
   }
 
-  getBrand(id: number): Observable<Brand> {
+  getBrand(id: number): Observable<BrandDto> {
 
-    return this.http.get<Brand>(`${environment.apiUrl}/Brands/GetBrand/${id}`);
+    return this.http.get<BrandDto>(`${environment.apiUrl}/Brands/GetBrand/${id}`);
   }
 
-  createBrand(brand: Brand): Observable<any> {
+  createBrand(brand: BrandDto): Observable<any> {
 
-    return this.http.post<Brand>(`${environment.apiUrl}/Brands/CreateBrand`, brand);
+    return this.http.post<BrandDto>(`${environment.apiUrl}/Brands/CreateBrand`, brand);
   }
 
-  editBrand(id: number, brand: Brand): Observable<any> {
+  editBrand(id: number, brand: BrandDto): Observable<any> {
 
-    return this.http.put<Brand>(`${environment.apiUrl}/Brands/EditBrand/${id}`, brand);
+    return this.http.put<BrandDto>(`${environment.apiUrl}/Brands/EditBrand/${id}`, brand);
   }
 
   deleteBrand(id: number): Observable<any> {
 
-    return this.http.delete<Brand>(`${environment.apiUrl}/Brands/DeleteBrand/${id}`)
+    return this.http.delete<BrandDto>(`${environment.apiUrl}/Brands/DeleteBrand/${id}`)
+  }
+
+  getBrandLookup(): Observable<LookupDto[]> {
+
+    return this.http.get<LookupDto[]>(`${environment.apiUrl}/Brands/GetBrandLookup`);
   }
 
 }

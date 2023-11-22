@@ -1,4 +1,4 @@
-export interface Brand {
+export interface LookupDto {
   id: number;
   name: string;
 }
