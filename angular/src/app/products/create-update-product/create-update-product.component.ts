@@ -7,6 +7,9 @@ import { ProductService } from 'src/app/services/product.service';
 import { LookupDto } from 'src/app/dtos/lookups/lookupDto.model';
 import { BrandService } from 'src/app/services/brand.service';
 import { ProductTypeService } from 'src/app/services/product-type.service';
+import { ToastrService } from 'ngx-toastr';
+import { NotificationMessages } from 'src/app/shared/constants/notification-messages';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-create-update-product',
@@ -31,6 +34,7 @@ export class CreateUpdateProductComponent implements OnInit {
     private productTypeSvc: ProductTypeService,
     private activatedRoute: ActivatedRoute,
     private fb: FormBuilder,
+    private toastr: ToastrService,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -50,7 +54,19 @@ export class CreateUpdateProductComponent implements OnInit {
   }
 
   submit(): void {
-    alert("NOT IMPLEMENTED");
+
+    if (this.form.valid) {
+
+      if (this.pageMode == PageMode.Create) {
+
+        this.createProduct();
+      }
+      else {
+
+        this.editProduct();
+      }
+
+    }
   }
 
   //#region Private Functions
@@ -121,6 +137,31 @@ export class CreateUpdateProductComponent implements OnInit {
     });
   }
 
+  private createProduct(): void {
+
+    this.productSvc.createProduct(this.form.value).subscribe({
+      next: () => {
+        this.toastr.success(NotificationMessages.CreatedSuccessfully);
+        this.router.navigate(['/products']);
+      },
+      error: (err: HttpErrorResponse) => {
+        this.toastr.error(err.message, NotificationMessages.InternalServerError);
+      }
+    });
+  }
+
+  private editProduct(): void {
+
+    this.productSvc.editProduct(this.productId, this.form.value).subscribe({
+      next: () => {
+        this.toastr.success(NotificationMessages.CreatedSuccessfully);
+        this.router.navigate(['/products']);
+      },
+      error: (err: HttpErrorResponse) => {
+        this.toastr.error(err.message, NotificationMessages.InternalServerError);
+      }
+    });
+  }
 
   //#endregion
 

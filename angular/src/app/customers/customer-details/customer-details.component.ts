@@ -2,8 +2,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { CustomerDetailsDto } from 'src/app/dtos/customers/customer-details.model';
 import { CustomerService } from 'src/app/services/customer.service';
+import { NotificationMessages } from 'src/app/shared/constants/notification-messages';
 
 @Component({
   selector: 'app-customer-details',
@@ -18,7 +20,7 @@ export class CustomerDetailsComponent implements OnInit {
   constructor(
     private customerSvc: CustomerService,
     private activatedRoute: ActivatedRoute,
-    private matSnackbar: MatSnackBar
+    private toastr: ToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -44,7 +46,7 @@ export class CustomerDetailsComponent implements OnInit {
         this.customer = customerFromApi;
       },
       error: (err: HttpErrorResponse) => {
-        this.matSnackbar.open(err.message);
+        this.toastr.error(err.message, NotificationMessages.InternalServerError);
       }
     });
   }

@@ -20,11 +20,21 @@ export class ProductService {
 
   getProduct(id: number): Observable<ProductDetailsDto> {
 
-    return this.http.get<ProductDetailsDto>(`${environment.apiUrl}/Products/GetProduct/${id}`)
+    return this.http.get<ProductDetailsDto>(`${environment.apiUrl}/Products/GetProduct/${id}`);
   }
 
   getProductForEdit(id: number): Observable<CreateUpdateProductDto> {
 
-    return this.http.get<CreateUpdateProductDto>(`${environment.apiUrl}/Products/GetProductForEdit/${id}`)
+    return this.http.get<CreateUpdateProductDto>(`${environment.apiUrl}/Products/GetProductForEdit/${id}`);
+  }
+
+  createProduct(product: CreateUpdateProductDto): Observable<any> {
+
+    return this.http.post<CreateUpdateProductDto>(`${environment.apiUrl}/Products/CreateProduct`, product);
+  }
+
+  editProduct(id: number, product: CreateUpdateProductDto): Observable<any> {
+
+    return this.http.put<CreateUpdateProductDto>(`${environment.apiUrl}/Products/EditProduct/${id}`, product);
   }
 }

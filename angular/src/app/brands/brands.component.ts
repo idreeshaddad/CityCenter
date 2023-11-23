@@ -6,6 +6,7 @@ import { DeleteBrandDialogComponent } from './delete-brand-dialog/delete-brand-d
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NotificationMessages } from '../shared/constants/notification-messages';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-brands',
@@ -20,7 +21,7 @@ export class BrandsComponent implements OnInit {
   constructor(
     private brandSvc: BrandService,
     private matDialogSvc: MatDialog,
-    private matSnackbar: MatSnackBar,
+    private toastr: ToastrService,
     private spinner: NgxSpinnerService
   ) { }
 
@@ -63,7 +64,8 @@ export class BrandsComponent implements OnInit {
     this.brandSvc.deleteBrand(id).subscribe({
       next: () => {
         this.loadBrands();
-        this.matSnackbar.open(NotificationMessages.DeletedSuccessfully)
+        this.toastr.success(NotificationMessages.DeletedSuccessfully);
+
       }
     });
   }

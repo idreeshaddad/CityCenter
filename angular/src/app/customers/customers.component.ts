@@ -6,6 +6,7 @@ import { DeleteCustomerDialogComponent } from './delete-customer-dialog/delete-c
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NotificationMessages } from '../shared/constants/notification-messages';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class CustomersComponent implements OnInit {
   constructor(
     private customerSvc: CustomerService,
     private matDialogSvc: MatDialog,
-    private matSnackbar: MatSnackBar,
+    private toastr: ToastrService,
     private spinner: NgxSpinnerService
   ) { }
 
@@ -64,7 +65,7 @@ export class CustomersComponent implements OnInit {
     this.customerSvc.deleteCustomer(id).subscribe({
       next: () => {
         this.loadCustomers();
-        this.matSnackbar.open(NotificationMessages.DeletedSuccessfully)
+        this.toastr.success(NotificationMessages.DeletedSuccessfully);
       }
     });
   }

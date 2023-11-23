@@ -7,6 +7,7 @@ import { PageMode } from 'src/app/enums/pageMode.enum';
 import { BrandDto } from 'src/app/dtos/brands/brand.model';
 import { BrandService } from 'src/app/services/brand.service';
 import { NotificationMessages } from 'src/app/shared/constants/notification-messages';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-update-brand',
@@ -27,7 +28,7 @@ export class CreateUpdateBrandComponent implements OnInit {
     private Router: Router,
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
-    private snackBar: MatSnackBar
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -89,13 +90,11 @@ export class CreateUpdateBrandComponent implements OnInit {
       },
       error: (err: HttpErrorResponse) => {
         if (err.status == 404) {
-          this.snackBar.open(NotificationMessages.NotFound);
+          this.toastr.error(NotificationMessages.NotFound);
           this.Router.navigate(['/brands']);
         }
         else {
-          this.snackBar.open(NotificationMessages.InternalServerError, "Ok", {
-            duration: 0
-          });
+          this.toastr.error(err.message, NotificationMessages.InternalServerError);
         }
 
       }
@@ -107,11 +106,12 @@ export class CreateUpdateBrandComponent implements OnInit {
 
     this.brandSvc.createBrand(this.form.value).subscribe({
       next: () => {
-        this.snackBar.open(NotificationMessages.CreatedSuccessfully);
+        this.toastr.success(NotificationMessages.CreatedSuccessfully);
         this.Router.navigate(['/brands']);
       },
       error: (err: HttpErrorResponse) => {
-        this.snackBar.open(NotificationMessages.InternalServerError);
+        this.toastr.error(err.message, NotificationMessages.InternalServerError);
+
       }
     });
   }
@@ -120,11 +120,12 @@ export class CreateUpdateBrandComponent implements OnInit {
 
     this.brandSvc.editBrand(this.brandId, this.form.value).subscribe({
       next: () => {
-        this.snackBar.open(NotificationMessages.EditedSuccessfully);
+        this.toastr.success(NotificationMessages.EditedSuccessfully);
         this.Router.navigate(['/brands']);
       },
       error: (err: HttpErrorResponse) => {
-        this.snackBar.open(NotificationMessages.InternalServerError);
+        this.toastr.error(err.message, NotificationMessages.InternalServerError);
+
       }
     });
   }

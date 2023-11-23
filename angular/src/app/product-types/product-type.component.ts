@@ -6,6 +6,7 @@ import { ProductTypeService } from '../services/product-type.service';
 import { ProductTypeDto } from '../dtos/productTypes/productType.model';
 import { DeleteProductTypeDialogComponent } from './delete-product-type-dialog/delete-product-type-dialog.component';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class ProductTypeComponent implements OnInit {
   constructor(
     private productTypeSvc: ProductTypeService,
     private matDialogSvc: MatDialog,
-    private matSnackbar: MatSnackBar,
+    private toastr: ToastrService,
     private spinner: NgxSpinnerService
   ) { }
 
@@ -64,7 +65,7 @@ export class ProductTypeComponent implements OnInit {
     this.productTypeSvc.deleteProductType(id).subscribe({
       next: () => {
         this.loadProductTypes();
-        this.matSnackbar.open(NotificationMessages.DeletedSuccessfully)
+        this.toastr.success(NotificationMessages.DeletedSuccessfully);
       }
     });
   }

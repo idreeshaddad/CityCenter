@@ -7,6 +7,7 @@ import { PageMode } from 'src/app/enums/pageMode.enum';
 import { CreateUpdateCustomerDto } from 'src/app/dtos/customers/create-update-customer.model';
 import { CustomerService } from 'src/app/services/customer.service';
 import { NotificationMessages } from 'src/app/shared/constants/notification-messages';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-update-customer',
@@ -26,7 +27,7 @@ export class CreateUpdateCustomerComponent implements OnInit {
     private customerSvc: CustomerService,
     private activatedRoute: ActivatedRoute,
     private fb: FormBuilder,
-    private matSnackbar: MatSnackBar,
+    private toastr: ToastrService,
     private router: Router
   ) { }
 
@@ -93,7 +94,8 @@ export class CreateUpdateCustomerComponent implements OnInit {
         this.customer = customerFromApi;
       },
       error: (err: HttpErrorResponse) => {
-        this.matSnackbar.open(NotificationMessages.InternalServerError);
+        this.toastr.error(err.message, NotificationMessages.InternalServerError);
+
       }
     });
   }
@@ -103,10 +105,10 @@ export class CreateUpdateCustomerComponent implements OnInit {
     this.customerSvc.createCustomer(this.form.value).subscribe({
       next: () => {
         this.router.navigate(['/customers']);
-        this.matSnackbar.open(NotificationMessages.CreatedSuccessfully);
+        this.toastr.success(NotificationMessages.CreatedSuccessfully);
       },
       error: (err: HttpErrorResponse) => {
-        this.matSnackbar.open(err.message);
+        this.toastr.error(err.message, NotificationMessages.InternalServerError);
       }
 
     });
@@ -117,10 +119,10 @@ export class CreateUpdateCustomerComponent implements OnInit {
     this.customerSvc.editCustomer(this.customerId, this.form.value).subscribe({
       next: () => {
         this.router.navigate(['/customers']);
-        this.matSnackbar.open(NotificationMessages.EditedSuccessfully);
+        this.toastr.success(NotificationMessages.EditedSuccessfully);
       },
       error: (err: HttpErrorResponse) => {
-        this.matSnackbar.open(err.message);
+        this.toastr.error(err.message, NotificationMessages.InternalServerError);
       }
 
     });
