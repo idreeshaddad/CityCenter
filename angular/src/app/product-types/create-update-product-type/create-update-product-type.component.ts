@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PageMode } from 'src/app/enums/pageMode.enum';
+import { PageMode } from 'src/app/enums/page-mode.enum';
 import { ProductTypeDto } from 'src/app/dtos/productTypes/productType.model';
 import { ProductTypeService } from 'src/app/services/product-type.service';
 import { NotificationMessages } from 'src/app/shared/constants/notification-messages';

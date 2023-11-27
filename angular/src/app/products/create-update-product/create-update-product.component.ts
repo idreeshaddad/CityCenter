@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PageMode } from 'src/app/enums/pageMode.enum';
+import { PageMode } from 'src/app/enums/page-mode.enum';
 import { CreateUpdateProductDto } from 'src/app/dtos/product/createUpdateProduct.model';
 import { ProductService } from 'src/app/services/product.service';
 import { LookupDto } from 'src/app/dtos/lookups/lookupDto.model';

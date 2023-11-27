@@ -1,0 +1,109 @@
+<div class="container">
+  <h1>Orders</h1>
+  <hr>
+  <button mat-raised-button color="primary">Create a New Order</button>
+  <hr>
+
+  <table mat-table [dataSource]="orders">
+
+    <ng-container matColumnDef="customer">
+      <th mat-header-cell *matHeaderCellDef> Customer </th>
+      <td mat-cell *matCellDef="let element"> {{element.customerFullName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="orderTime">
+      <th mat-header-cell *matHeaderCellDef> Order Time </th>
+      <td mat-cell *matCellDef="let element"> {{element.date | date:'medium'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="orderStatus">
+      <th mat-header-cell *matHeaderCellDef> Order Status </th>
+      <td mat-cell *matCellDef="let element">
+
+        <ng-container *ngIf="element.orderStatus == orderStatusEnum.Pending; else elseOrderStatusTemplate">
+          <span class="text-warning">Pending</span>
+        </ng-container>
+        <ng-template #elseOrderStatusTemplate>
+          <span class="text-success">Completed</span>
+        </ng-template>
+
+
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="totalPrice">
+      <th mat-header-cell *matHeaderCellDef> Total Price </th>
+      <td mat-cell *matCellDef="let element"> {{element.totalPrice | currency}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="paymentMethod">
+      <th mat-header-cell *matHeaderCellDef> Payment Method </th>
+      <td class="fs-5 pt-3 text-primary" mat-cell *matCellDef="let element">
+        <span [ngSwitch]="element.paymentMethod">
+          <p *ngSwitchCase=" paymentMethodEnum.Cash">
+            <i class="fa-solid fa-dollar-sign" matTooltip="Cash"></i>
+          </p>
+          <p *ngSwitchCase="paymentMethodEnum.Credit">
+            <i class="fa-solid fa-credit-card" matTooltip="Credit"></i>
+          </p>
+          <p *ngSwitchCase="paymentMethodEnum.PayPal">
+            <i class="fa-brands fa-paypal" matTooltip="PayPal"></i>
+          </p>
+          <p *ngSwitchCase="paymentMethodEnum.CryptoCurrency">
+            <i class="fa-brands fa-bitcoin" matTooltip="CryptoCurrency"></i>
+          </p>
+          <p *ngSwitchDefault>
+            ERROR
+          </p>
+        </span>
+      </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let element">
+
+        <a [routerLink]="['/orders/details', element.id]" matTooltip="Details">
+          <mat-icon class="text-info" aria-hidden="false" aria-label="details" fontIcon="info"></mat-icon>
+        </a>
+
+        <a class="ms-2" [routerLink]="['/orders/edit', element.id]" matTooltip="Edit">
+          <mat-icon aria-hidden="false" aria-label="edit" fontIcon="edit"></mat-icon>
+        </a>
+        <a class="ms-2 pointer" (click)="openDeleteDialog(element)" matTooltip="Delete">
+          <mat-icon color="warn" aria-hidden="false" aria-label="edit" fontIcon="delete"></mat-icon>
+        </a>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <!-- <table class="table">
+    <thead>
+      <tr>
+        <th>Customer</th>
+        <th>Order Date</th>
+        <th>Order Status</th>
+        <th>Total Price</th>
+        <th>Payment Method</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of orders">
+        <td>{{ order.customerFullName }}</td>
+        <td>{{ order.date }}</td>
+        <td>{{ order.orderStatus }}</td>
+        <td>{{ order.totalPrice }}</td>
+        <td>{{ order.paymentMethod }}</td>
+        <td>
+
+        </td>
+      </tr>
+    </tbody>
+  </table> -->
+
+</div>

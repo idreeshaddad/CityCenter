@@ -11,6 +11,8 @@ import { CustomerDetailsComponent } from './customers/customer-details/customer-
 import { ProductsComponent } from './products/products.component';
 import { ProductDetailsComponent } from './products/product-details/product-details.component';
 import { CreateUpdateProductComponent } from './products/create-update-product/create-update-product.component';
+import { OrdersComponent } from './orders/orders.component';
+import { OrderDetailsComponent } from './orders/order-details/order-details.component';
 
 const routes: Routes = [
   { path: "home", component: HomeComponent },
@@ -32,6 +34,9 @@ const routes: Routes = [
   { path: "products/details/:id", component: ProductDetailsComponent },
   { path: "products/create", component: CreateUpdateProductComponent },
   { path: "products/edit/:id", component: CreateUpdateProductComponent },
+
+  { path: "orders", component: OrdersComponent },
+  { path: "orders/details/:id", component: OrderDetailsComponent },
 
   {
     path: '', redirectTo: 'home', pathMatch: 'full'

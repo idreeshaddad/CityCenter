@@ -26,6 +26,8 @@ import { CreateUpdateProductComponent } from './products/create-update-product/c
 import { DeleteProductDialogComponent } from './products/delete-product-dialog/delete-product-dialog.component';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { OrdersComponent } from './orders/orders.component';
+import { OrderDetailsComponent } from './orders/order-details/order-details.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { NgxSpinnerModule } from "ngx-spinner";
     ProductsComponent,
     ProductDetailsComponent,
     CreateUpdateProductComponent,
-    DeleteProductDialogComponent
+    DeleteProductDialogComponent,
+    OrdersComponent,
+    OrderDetailsComponent
   ],
   imports: [
     BrowserModule,
