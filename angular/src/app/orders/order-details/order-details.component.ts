@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OrderDetailsDto } from 'src/app/dtos/orders/order-details.dto';
+import { OrderStatus } from 'src/app/enums/order-status.enum';
+import { PaymentMethod } from 'src/app/enums/payment-method.enum';
 import { OrderService } from 'src/app/services/order.service';
 
 @Component({
@@ -11,7 +13,12 @@ import { OrderService } from 'src/app/services/order.service';
 export class OrderDetailsComponent implements OnInit {
 
   orderId!: number;
-  order?: OrderDetailsDto;
+  order!: OrderDetailsDto;
+
+  orderStatusEnum = OrderStatus;
+  paymentMethodEnum = PaymentMethod;
+
+  displayedColumns: string[] = ['id', 'name', 'subPrice', 'quantity'];
 
   constructor(
     private orderSvc: OrderService,
