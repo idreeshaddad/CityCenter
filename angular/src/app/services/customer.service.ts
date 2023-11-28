@@ -4,6 +4,7 @@ import { CustomerDto } from '../dtos/customers/customer.model';
 import { environment } from 'src/environments/environment.development';
 import { Observable } from 'rxjs';
 import { CreateUpdateCustomerDto } from '../dtos/customers/create-update-customer.model';
+import { LookupDto } from '../dtos/lookups/lookupDto.model';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +41,11 @@ export class CustomerService {
   getCustomerForEdit(id: number): Observable<CreateUpdateCustomerDto> {
 
     return this.http.get<CreateUpdateCustomerDto>(`${environment.apiUrl}/Customers/GetCustomerForEdit/${id}`);
+  }
+
+  getCustomerLookup(): Observable<LookupDto[]> {
+
+    return this.http.get<LookupDto[]>(`${environment.apiUrl}/Customers/GetCustomerLookup`);
   }
 
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MB.CityCenter.Dtos.Lookups;
 using MB.CityCenter.Dtos.Products;
 using MB.CityCenter.Entities;
 using MB.CityCenter.EntityFrameworkCore;
@@ -132,6 +133,22 @@ namespace MB.CityCenter.WebApi.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<LookupDto>>> GetProductLookup()
+        {
+            var productLookup = await _context
+                                    .Products
+                                    .Select(product => new LookupDto()
+                                    {
+                                        Id = product.Id,
+                                        Name = product.Name
+                                    })
+                                    .ToListAsync();
+
+
+            return productLookup;
         }
 
         #region Private Methods

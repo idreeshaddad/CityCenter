@@ -13,6 +13,7 @@ import { ProductDetailsComponent } from './products/product-details/product-deta
 import { CreateUpdateProductComponent } from './products/create-update-product/create-update-product.component';
 import { OrdersComponent } from './orders/orders.component';
 import { OrderDetailsComponent } from './orders/order-details/order-details.component';
+import { CreateUpdateOrderComponent } from './orders/create-update-order/create-update-order.component';
 
 const routes: Routes = [
   { path: "home", component: HomeComponent },
@@ -37,6 +38,8 @@ const routes: Routes = [
 
   { path: "orders", component: OrdersComponent },
   { path: "orders/details/:id", component: OrderDetailsComponent },
+  { path: "orders/create", component: CreateUpdateOrderComponent },
+  { path: "orders/edit/:id", component: CreateUpdateOrderComponent },
 
   {
     path: '', redirectTo: 'home', pathMatch: 'full'

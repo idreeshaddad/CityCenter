@@ -5,6 +5,7 @@ import { ProductDto } from '../dtos/product/product.model';
 import { environment } from 'src/environments/environment.development';
 import { ProductDetailsDto } from '../dtos/product/productDetails.model';
 import { CreateUpdateProductDto } from '../dtos/product/createUpdateProduct.model';
+import { LookupDto } from '../dtos/lookups/lookupDto.model';
 
 @Injectable({
   providedIn: 'root'
@@ -36,5 +37,10 @@ export class ProductService {
   editProduct(id: number, product: CreateUpdateProductDto): Observable<any> {
 
     return this.http.put<CreateUpdateProductDto>(`${environment.apiUrl}/Products/EditProduct/${id}`, product);
+  }
+
+  getProductLookup(): Observable<LookupDto[]> {
+
+    return this.http.get<LookupDto[]>(`${environment.apiUrl}/Products/GetProductLookup`);
   }
 }

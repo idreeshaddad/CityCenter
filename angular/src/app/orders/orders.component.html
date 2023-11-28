@@ -1,7 +1,7 @@
 <div class="container">
   <h1>Orders</h1>
   <hr>
-  <button mat-raised-button color="primary">Create a New Order</button>
+  <button mat-raised-button color="primary" [routerLink]="['/orders/create']">Create a New Order</button>
   <hr>
 
   <table mat-table [dataSource]="orders">

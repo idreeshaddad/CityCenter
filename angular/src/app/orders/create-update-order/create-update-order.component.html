@@ -1,0 +1,43 @@
+<div class="container">
+
+  <h1>
+    <ng-container *ngIf="pageMode === pageModeEnum.Create; else elseTitleTemplate">
+      Create a new Order
+    </ng-container>
+    <ng-template #elseTitleTemplate>
+      Edit Order # <span class="text-primary ">{{ order?.id }}</span>
+    </ng-template>
+
+  </h1>
+  <hr>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+
+    <div>
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Customer</mat-label>
+        <mat-select formControlName="customerId">
+          <mat-option *ngFor="let customer of customerLookup" [value]="customer.id">
+            {{customer.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error>This field is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="mt-3">
+      <button mat-raised-button color="basic" [routerLink]="['/orders']">Cancel</button>
+      <button class="ms-3" mat-raised-button color="primary" type="submit">
+        <ng-container *ngIf="pageMode === pageModeEnum.Create; else elseButtonTemplate">
+          Create
+        </ng-container>
+        <ng-template #elseButtonTemplate>
+          Save
+        </ng-template>
+
+      </button>
+    </div>
+
+  </form>
+
+</div>

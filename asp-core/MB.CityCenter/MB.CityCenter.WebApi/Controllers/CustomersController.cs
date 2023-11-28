@@ -4,6 +4,7 @@ using MB.CityCenter.Entities;
 using MB.CityCenter.EntityFrameworkCore;
 using AutoMapper;
 using MB.CityCenter.Dtos.Customers;
+using MB.CityCenter.Dtos.Lookups;
 
 namespace MB.CityCenter.WebApi.Controllers
 {
@@ -120,6 +121,22 @@ namespace MB.CityCenter.WebApi.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<LookupDto>>> GetCustomerLookup()
+        {
+            var customerLookup = await _context
+                                    .Customers
+                                    .Select(customer => new LookupDto()
+                                    {
+                                        Id = customer.Id,
+                                        Name = customer.FullName
+                                    })
+                                    .ToListAsync();
+
+
+            return customerLookup;
         }
 
         #endregion

@@ -60,6 +60,27 @@ namespace MB.CityCenter.WebApi.Controllers
             return orderDto;
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<CreateUpdateOrderDto>> GetOrderForEdit(int id)
+        {
+            var order = await _context
+                                .Orders
+                                .Include(o => o.Customer)
+                                .Include(o => o.OrderProducts)
+                                    .ThenInclude(op => op.Product)
+                                .Where(o => o.Id == id)
+                                .SingleOrDefaultAsync();
+
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            var orderDto = _mapper.Map<CreateUpdateOrderDto>(order);
+
+            return orderDto;
+        }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> EditOrder(int id, CreateUpdateOrderDto orderDto)
         {

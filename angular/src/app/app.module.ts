@@ -28,6 +28,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { OrdersComponent } from './orders/orders.component';
 import { OrderDetailsComponent } from './orders/order-details/order-details.component';
+import { CreateUpdateOrderComponent } from './orders/create-update-order/create-update-order.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { OrderDetailsComponent } from './orders/order-details/order-details.comp
     CreateUpdateProductComponent,
     DeleteProductDialogComponent,
     OrdersComponent,
-    OrderDetailsComponent
+    OrderDetailsComponent,
+    CreateUpdateOrderComponent
   ],
   imports: [
     BrowserModule,
