@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using MB.CityCenter.Dtos.Orders;
 using MB.CityCenter.Entities;
 using MB.CityCenter.EntityFrameworkCore;
-using AutoMapper;
-using MB.CityCenter.Dtos.Orders;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace MB.CityCenter.WebApi.Controllers
 {
@@ -98,10 +98,12 @@ namespace MB.CityCenter.WebApi.Controllers
 
             _mapper.Map(orderDto, order);
 
-            order.TotalPrice = await GetOrderTotalPrice(orderDto);
+            var products = await GetProducts(orderDto);
 
-            UpdateOrderProducts(order, orderDto);
-            
+            UpdateOrderProducts(order, products);
+
+            order.TotalPrice = GetOrderTotalPrice(order, products);
+
             _context.Update(order);
 
             try
@@ -130,10 +132,11 @@ namespace MB.CityCenter.WebApi.Controllers
 
             order.Date = DateTime.Now;
 
-            order.TotalPrice = await GetOrderTotalPrice(orderDto);
+            var products = await GetProducts(orderDto);
 
+            UpdateOrderProducts(order, products);
 
-            UpdateOrderProducts(order, orderDto);
+            order.TotalPrice = GetOrderTotalPrice(order, products);
 
 
             _context.Orders.Add(order);
@@ -166,30 +169,46 @@ namespace MB.CityCenter.WebApi.Controllers
             return (_context.Orders?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
-        private async Task<decimal> GetOrderTotalPrice(CreateUpdateOrderDto orderDto)
+        private decimal GetOrderTotalPrice(Order order, List<Product> products)
         {
-            var productIds = orderDto.Products.Select(p => p.ProductId).ToList();
-            var products = await _context.Products.Where(p => productIds.Contains(p.Id)).ToListAsync();
+            // TO DO Quantity is not getting sent from the UI 
+            decimal totalPrice = products.Sum(p => p.Price * order.OrderProducts.Single(op => op.ProductId == p.Id).Quantity);
 
-            decimal totalPrice = products.Sum(p => p.Price * orderDto.Products.Single(op => op.ProductId == p.Id).Quantity);
             return totalPrice;
         }
 
-        private void UpdateOrderProducts(Order order, CreateUpdateOrderDto orderDto)
+        private void UpdateOrderProducts(Order order, List<Product> products)
         {
             order.OrderProducts.Clear();
 
-            orderDto.Products.ForEach(orderProduct =>
+            if (products.Count() > 0)
             {
-                order.OrderProducts.Add(new OrderProduct()
+                products.ForEach(product =>
                 {
-                    OrderId = order.Id,
-                    ProductId = orderProduct.ProductId,
-                    Quantity = orderProduct.Quantity
+                    var orderProduct = new OrderProduct()
+                    {
+                        ProductId = product.Id,
+                        OrderId = order.Id
+                    };
+
+                    order.OrderProducts.Add(orderProduct);
                 });
-            });
+            };
         }
 
+        private async Task<List<Product>> GetProducts(CreateUpdateOrderDto orderDto)
+        {
+            var productIds = orderDto.OrderItems.Select(o => o.Id).ToList();
+
+            var products = await _context
+                                    .Products
+                                    .Where(p => productIds.Contains(p.Id))
+                                    .ToListAsync();
+            return products;
+        }
+     
         #endregion
     }
+
 }
+

@@ -13,16 +13,41 @@
 
   <form [formGroup]="form" (ngSubmit)="submit()">
 
-    <div>
-      <mat-form-field class="w-100" appearance="outline">
-        <mat-label>Customer</mat-label>
-        <mat-select formControlName="customerId">
-          <mat-option *ngFor="let customer of customerLookup" [value]="customer.id">
-            {{customer.name}}
-          </mat-option>
-        </mat-select>
-        <mat-error>This field is required</mat-error>
-      </mat-form-field>
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Products</mat-label>
+      <mat-select formControlName="productIds" multiple>
+        <mat-option *ngFor="let product of productsLookup" [value]="product.id">
+          {{product.name}}
+        </mat-option>
+      </mat-select>
+      <mat-error>This field is required</mat-error>
+    </mat-form-field>
+
+    <div class="row">
+      <div class="col-md-4">
+
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Customer</mat-label>
+          <mat-select formControlName="customerId">
+            <mat-option *ngFor="let customer of customerLookup" [value]="customer.id">
+              {{customer.name}}
+            </mat-option>
+          </mat-select>
+          <mat-error>This field is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Payment Method</mat-label>
+          <mat-select formControlName="paymentMethod">
+            <mat-option value="0">Cash</mat-option>
+            <mat-option value="1">Credit</mat-option>
+            <mat-option value="2">Paypal</mat-option>
+            <mat-option value="3">Crypto Currency</mat-option>
+          </mat-select>
+          <mat-error>This field is required</mat-error>
+        </mat-form-field>
+
+      </div>
     </div>
 
     <div class="mt-3">
