@@ -4,6 +4,16 @@ namespace MB.CityCenter.Entities
 {
     public class Order
     {
+        public Order()
+        {
+            
+        }
+
+        public Order(int customerId)
+        {
+            CustomerId = customerId;
+        }
+
         public int Id { get; set; }
         public DateTime? Date { get; set; }
         public OrderStatus OrderStatus { get; set; } = OrderStatus.Pending;

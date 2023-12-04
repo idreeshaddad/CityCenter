@@ -3,6 +3,7 @@ using MB.CityCenter.Dtos.Lookups;
 using MB.CityCenter.Dtos.Products;
 using MB.CityCenter.Entities;
 using MB.CityCenter.EntityFrameworkCore;
+using MB.CityCenter.Utils.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -151,11 +152,71 @@ namespace MB.CityCenter.WebApi.Controllers
             return productLookup;
         }
 
+        [HttpPost]
+        public async Task<IActionResult> AddToCart(int productId, int customerId, int quantity = 1)
+        {
+            var order = await GetOrder(customerId);
+
+            var product = await GetProductToAddToCart(productId);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+
+            var newOrderProduct = new OrderProduct()
+            {
+                OrderId = order.Id,
+                ProductId = productId,
+                Quantity = quantity
+            };
+
+            // TO DO update total price
+
+            order.OrderProducts.Add(newOrderProduct);
+            _context.Update(order);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+
         #region Private Methods
 
         private bool ProductExists(int id)
         {
             return (_context.Products?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+
+        private async Task<Order> GetOrder(int customerId)
+        {
+            var order = await _context
+                                .Orders
+                                .Where(o => o.OrderStatus == OrderStatus.Pending && o.CustomerId == customerId)
+                                .SingleOrDefaultAsync();
+
+            if(order != null)
+            {
+                return order;
+            }
+            else
+            {
+                var newOrder = new Order(customerId);
+                _context.Orders.Add(newOrder);
+                await _context.SaveChangesAsync();
+                return newOrder;
+            }
+        }
+
+        private async Task<Product> GetProductToAddToCart(int productId)
+        {
+            var product = await _context
+                                    .Products
+                                    .Where(product => product.Id == productId && product.Quantity > 0)
+                                    .SingleOrDefaultAsync();
+
+            return product;
         }
 
         #endregion
