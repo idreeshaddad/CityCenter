@@ -11,10 +11,22 @@
     <div class="col-lg-6">
       <h1><span class="text-primary">{{ product?.name }}</span></h1>
       <div class="mt-3">
-        <button mat-raised-button color="primary">
-          <mat-icon>add_shopping_cart</mat-icon>
-          Add to Card
-        </button>
+        <ng-container *ngIf="product?.isInStock; else elseInStock">
+          <button mat-raised-button color="primary" (click)="addToCart()">
+            <mat-icon>add_shopping_cart</mat-icon>
+            Add to Card
+          </button>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Quantity</mat-label>
+            <input matInput type="number" [(ngModel)]="quantity" required>
+            <mat-error>Quantity is required</mat-error>
+          </mat-form-field>
+
+        </ng-container>
+        <ng-template #elseInStock>
+          <span class="text-muted">Out of Stock</span>
+        </ng-template>
       </div>
       <div class="row mt-4">
         <div class="col-md-4">Description</div>
@@ -22,15 +34,7 @@
       </div>
       <div class="row mt-3">
         <div class="col-md-4">Price</div>
-        <div class="col-md-4 fw-bold">{{ product?.price }}</div>
-      </div>
-      <div class="row mt-3">
-        <div class="col-md-4">Stock</div>
-        <div class="col-md-4 fw-bold">{{ product?.isInStock }}</div>
-      </div>
-      <div class="row mt-3">
-        <div class="col-md-4">Quantity</div>
-        <div class="col-md-4 fw-bold">{{ product?.quantity }}</div>
+        <div class="col-md-4 fw-bold">{{ product?.price | currency}}</div>
       </div>
       <div class="row mt-3">
         <div class="col-md-4">Brand</div>

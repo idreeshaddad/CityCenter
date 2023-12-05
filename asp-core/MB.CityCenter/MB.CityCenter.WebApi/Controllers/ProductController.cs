@@ -4,6 +4,7 @@ using MB.CityCenter.Dtos.Products;
 using MB.CityCenter.Entities;
 using MB.CityCenter.EntityFrameworkCore;
 using MB.CityCenter.Utils.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -153,34 +154,30 @@ namespace MB.CityCenter.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddToCart(int productId, int customerId, int quantity = 1)
+        public async Task<IActionResult> AddToCart(AddToCartDto addToCartDto)
         {
+            // Assume that the user is logged in and the userId is brought from the logging session
+            var customerId = 2; // Has to be a user in the database
+
             var order = await GetOrder(customerId);
 
-            var product = await GetProductToAddToCart(productId);
+            var product = await GetProductToAddToCart(addToCartDto.ProductId);
 
             if (product == null)
             {
                 return NotFound();
             }
 
+            var orderProduct = await UpdateCart(order.Id, addToCartDto);
 
-            var newOrderProduct = new OrderProduct()
-            {
-                OrderId = order.Id,
-                ProductId = productId,
-                Quantity = quantity
-            };
+            UpdatePrice(addToCartDto, order, product);
 
-            // TO DO update total price
-
-            order.OrderProducts.Add(newOrderProduct);
+            order.OrderProducts.Add(orderProduct);
             _context.Update(order);
             await _context.SaveChangesAsync();
 
             return Ok();
         }
-
 
         #region Private Methods
 
@@ -217,6 +214,44 @@ namespace MB.CityCenter.WebApi.Controllers
                                     .SingleOrDefaultAsync();
 
             return product;
+        }
+
+        private async Task<OrderProduct> UpdateCart(int orderId, AddToCartDto addToCartDto)
+        {
+            var orderProduct = await GetOrderProduct(orderId, addToCartDto.ProductId);
+
+            if (orderProduct == null)
+            {
+                orderProduct = new OrderProduct()
+                {
+                    OrderId = orderId,
+                    ProductId = addToCartDto.ProductId,
+                    Quantity = addToCartDto.Quantity,
+                    CreationDate = DateTime.Now
+                };
+            }
+            else
+            {
+                orderProduct.Quantity += addToCartDto.Quantity;
+            }
+
+            return orderProduct;
+
+        }
+
+        private async Task<OrderProduct?> GetOrderProduct(int orderId, int productId)
+        {
+            var orderProduct = await _context
+                                    .OrderProducts
+                                    .Where(op => op.OrderId == orderId && op.ProductId == productId)
+                                    .SingleOrDefaultAsync();
+
+            return orderProduct;
+        }
+
+        private static void UpdatePrice(AddToCartDto addToCartDto, Order order, Product product)
+        {
+            order.TotalPrice += product.Price * addToCartDto.Quantity;
         }
 
         #endregion

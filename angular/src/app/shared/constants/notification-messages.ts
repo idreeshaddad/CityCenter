@@ -4,4 +4,5 @@ export const NotificationMessages = {
   CreatedSuccessfully: "Entity has been created successfully",
   EditedSuccessfully: "Entity has been edited successfully",
   DeletedSuccessfully: "Entity has been deleted successfully",
+  ProductAddedToCartSuccessfully: "Product has been added to cart successfully",
 }

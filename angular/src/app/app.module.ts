@@ -11,7 +11,7 @@ import { BrandsComponent } from './brands/brands.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { CreateUpdateBrandComponent } from './brands/create-update-brand/create-update-brand.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DeleteBrandDialogComponent } from './brands/delete-brand-dialog/delete-brand-dialog.component';
 import { ProductTypeComponent } from './product-types/product-type.component';
 import { DeleteProductTypeDialogComponent } from './product-types/delete-product-type-dialog/delete-product-type-dialog.component';
@@ -60,6 +60,7 @@ import { CreateUpdateOrderComponent } from './orders/create-update-order/create-
     HttpClientModule,
     SharedModule,
     ReactiveFormsModule,
+    FormsModule,
     NgxSpinnerModule
   ],
   providers: [],

@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AddToCartDto } from 'src/app/dtos/product/addToCartDto.model';
 import { ProductDetailsDto } from 'src/app/dtos/product/productDetails.model';
 import { ProductService } from 'src/app/services/product.service';
 import { NotificationMessages } from 'src/app/shared/constants/notification-messages';
@@ -14,7 +15,9 @@ import { NotificationMessages } from 'src/app/shared/constants/notification-mess
 export class ProductDetailsComponent implements OnInit {
 
   productId!: number;
-  product?: ProductDetailsDto;
+  product!: ProductDetailsDto;
+
+  quantity: number = 1;
 
   constructor(
     private productSvc: ProductService,
@@ -26,6 +29,23 @@ export class ProductDetailsComponent implements OnInit {
 
     this.setProductId();
     this.loadProduct();
+  }
+
+  addToCart(): void {
+
+    const addToCartDto: AddToCartDto = {
+      productId: this.product.id,
+      quantity: this.quantity
+    }
+
+    this.productSvc.addToCart(addToCartDto).subscribe({
+      next: () => {
+        this.toastr.success(NotificationMessages.ProductAddedToCartSuccessfully);
+      },
+      error: (err: HttpErrorResponse) => {
+        this.toastr.error(NotificationMessages.InternalServerError);
+      }
+    });
   }
 
   //#region Private Functions
