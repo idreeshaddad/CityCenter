@@ -1,4 +1,4 @@
-﻿namespace MB.CityCenter.Dtos.Products;
+﻿namespace MB.CityCenter.Dtos.Carts;
 
 public class AddToCartDto
 {

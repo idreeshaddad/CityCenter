@@ -7,11 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MB.CityCenter.Utils\MB.CityCenter.Utils.csproj" />
+    <Compile Remove="OrderProducts\**" />
+    <EmbeddedResource Remove="OrderProducts\**" />
+    <None Remove="OrderProducts\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="OrderProducts\" />
+    <ProjectReference Include="..\MB.CityCenter.Utils\MB.CityCenter.Utils.csproj" />
   </ItemGroup>
 
 </Project>

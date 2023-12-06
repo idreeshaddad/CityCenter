@@ -25,7 +25,12 @@
           <a class="nav-link" [routerLink]="['/orders']">Orders</a>
         </li>
       </ul>
-      <form class="d-flex" role="search">
+      <div class="pt-2">
+        <a [routerLink]="['/cart']" matTooltip="Shopping Cart">
+          <mat-icon aria-hidden="false" aria-label="edit" fontIcon="shopping_cart"></mat-icon>
+        </a>
+      </div>
+      <form class="d-flex ms-3" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>

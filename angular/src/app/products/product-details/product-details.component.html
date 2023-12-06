@@ -12,12 +12,12 @@
       <h1><span class="text-primary">{{ product?.name }}</span></h1>
       <div class="mt-3">
         <ng-container *ngIf="product?.isInStock; else elseInStock">
-          <button mat-raised-button color="primary" (click)="addToCart()">
+          <button class="addToCartbtn" mat-raised-button color="primary" (click)="addToCart()">
             <mat-icon>add_shopping_cart</mat-icon>
             Add to Card
           </button>
 
-          <mat-form-field appearance="outline">
+          <mat-form-field class="ms-3" appearance="outline">
             <mat-label>Quantity</mat-label>
             <input matInput type="number" [(ngModel)]="quantity" required>
             <mat-error>Quantity is required</mat-error>

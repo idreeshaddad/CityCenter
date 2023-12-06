@@ -14,6 +14,7 @@ import { CreateUpdateProductComponent } from './products/create-update-product/c
 import { OrdersComponent } from './orders/orders.component';
 import { OrderDetailsComponent } from './orders/order-details/order-details.component';
 import { CreateUpdateOrderComponent } from './orders/create-update-order/create-update-order.component';
+import { CartComponent } from './cart/cart.component';
 
 const routes: Routes = [
   { path: "home", component: HomeComponent },
@@ -40,6 +41,8 @@ const routes: Routes = [
   { path: "orders/details/:id", component: OrderDetailsComponent },
   { path: "orders/create", component: CreateUpdateOrderComponent },
   { path: "orders/edit/:id", component: CreateUpdateOrderComponent },
+
+  { path: "cart", component: CartComponent },
 
   {
     path: '', redirectTo: 'home', pathMatch: 'full'

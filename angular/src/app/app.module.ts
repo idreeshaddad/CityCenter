@@ -29,6 +29,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { OrdersComponent } from './orders/orders.component';
 import { OrderDetailsComponent } from './orders/order-details/order-details.component';
 import { CreateUpdateOrderComponent } from './orders/create-update-order/create-update-order.component';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { CreateUpdateOrderComponent } from './orders/create-update-order/create-
     DeleteProductDialogComponent,
     OrdersComponent,
     OrderDetailsComponent,
-    CreateUpdateOrderComponent
+    CreateUpdateOrderComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,
