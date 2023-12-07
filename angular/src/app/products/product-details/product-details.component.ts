@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AddToCartDto } from 'src/app/dtos/product/addToCartDto.model';
 import { ProductDetailsDto } from 'src/app/dtos/product/productDetails.model';
+import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 import { NotificationMessages } from 'src/app/shared/constants/notification-messages';
 
@@ -22,7 +23,8 @@ export class ProductDetailsComponent implements OnInit {
   constructor(
     private productSvc: ProductService,
     private activatedRoute: ActivatedRoute,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private cartSvc: CartService
   ) { }
 
   ngOnInit(): void {
@@ -38,7 +40,7 @@ export class ProductDetailsComponent implements OnInit {
       quantity: this.quantity
     }
 
-    this.productSvc.addToCart(addToCartDto).subscribe({
+    this.cartSvc.addToCart(addToCartDto).subscribe({
       next: () => {
         this.toastr.success(NotificationMessages.ProductAddedToCartSuccessfully);
       },

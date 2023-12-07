@@ -45,9 +45,4 @@ export class ProductService {
     return this.http.get<LookupDto[]>(`${environment.apiUrl}/Products/GetProductLookup`);
   }
 
-  addToCart(addToCartDto: AddToCartDto): Observable<any> {
-
-    return this.http.post<any>(`${environment.apiUrl}/Products/AddToCart`, addToCartDto);
-  }
-
 }

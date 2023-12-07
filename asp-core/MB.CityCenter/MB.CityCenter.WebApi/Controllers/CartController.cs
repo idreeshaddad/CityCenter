@@ -27,11 +27,11 @@ namespace MB.CityCenter.WebApi.Controllers
         #endregion
 
         [HttpGet]
-        public async Task<ActionResult<CartDto>> GetCartItems()
+        public async Task<ActionResult<CartDto>> GetCart()
         {
             var customerId = 2; // Hard coded because we do not have IdentityUser for now
 
-           var order = await GetOrderWithProducts(customerId);
+            var order = await GetOrderWithProducts(customerId);
 
             if (order == null)
             {
@@ -69,6 +69,44 @@ namespace MB.CityCenter.WebApi.Controllers
             return Ok();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> CheckOut(CartDto cartDto)
+        {
+            var order = await _context
+                                .Orders
+                                .Include(o => o.OrderProducts)
+                                .SingleOrDefaultAsync(o => o.Id == cartDto.OrderId);
+
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            order.OrderStatus = OrderStatus.Completed;
+
+            //IncreseStock()
+            foreach (var orderProduct in order.OrderProducts)
+            {
+                var product = await _context
+                                          .Products
+                                          .FindAsync(orderProduct.ProductId);
+                if (product == null)
+                {
+                    return NotFound();
+                }
+
+                product.Quantity -= orderProduct.Quantity;
+
+                _context.Update(product);
+                await _context.SaveChangesAsync();
+
+               
+            }
+
+            return Ok();
+
+        }
+
         #region Private Methods
 
         private async Task<Order> GetOrder(int customerId)
@@ -78,7 +116,7 @@ namespace MB.CityCenter.WebApi.Controllers
                                 .Where(o => o.OrderStatus == OrderStatus.Pending && o.CustomerId == customerId)
                                 .SingleOrDefaultAsync();
 
-            if(order != null)
+            if (order != null)
             {
                 return order;
             }
@@ -165,7 +203,8 @@ namespace MB.CityCenter.WebApi.Controllers
             var cartDto = new CartDto()
             {
                 CartItems = cartItems,
-                TotalPrice = order.TotalPrice
+                TotalPrice = order.TotalPrice,
+                OrderId = order.Id
             };
 
             return cartDto;

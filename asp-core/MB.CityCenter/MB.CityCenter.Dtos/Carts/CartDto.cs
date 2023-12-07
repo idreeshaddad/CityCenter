@@ -10,5 +10,6 @@ namespace MB.CityCenter.Dtos.Carts
     {
         public List<CartItemDto> CartItems { get; set; }
         public decimal TotalPrice { get; set; }
+        public int OrderId { get; set; }
     }
 }
